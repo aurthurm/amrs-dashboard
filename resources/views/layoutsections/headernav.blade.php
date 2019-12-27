@@ -64,10 +64,13 @@
                 <div class="dropdown-menu  dropdown-menu-right"   >
                     <a class="dropdown-item" href="#">  Add Account
                     </a>
-                    <a class="dropdown-item" href="#">  Reset Password</a>
+                    <a class="dropdown-item" href="/resetPassword">  Reset Password</a>
                     <a class="dropdown-item" href="#">  Help </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"> Logout</a>
+                    <form action="/logout" method="POST">
+                        @csrf
+                    <button type="submit" class="dropdown-item"> Logout</button>
+                    </form>
                 </div>
             </li>
 

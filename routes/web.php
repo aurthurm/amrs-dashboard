@@ -18,3 +18,52 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('admin.login');
 });
+
+Route::post('/login_submit', 'Admin\AdminController@loginSubmit');
+Route::post('/logout', 'Admin\AdminController@logout');
+
+//Reset Password
+Route::get('/resetPassword', 'Admin\AdminController@resetpassword')->name('admin.resetpassword');
+Route::post('/changePassword', 'Admin\AdminController@changePassword');
+
+//common function
+Route::post('/checkValidation', 'Common\CommonController@checkValidation');
+Route::post('/duplicateValidation', 'Common\CommonController@duplicateValidation');
+
+// Route::get('/user', function () {
+//     return view('user.index');
+// });
+
+//User Module
+
+Route::get('/user', 'Users\UsersController@index')->name('users.index');
+Route::get('/deny', 'Users\UsersController@deny')->name('users.deny');
+Route::post('/getuser', 'Users\UsersController@getUser')->name('users.get');
+// Route::resource('/user','User\UserController');
+Route::get('/adduser', 'Users\UsersController@adduser');
+Route::get('/userfacilitymap', 'Users\UsersController@userfacilitymap');
+Route::get('/edituser/{id}', 'Users\UsersController@edituser');
+Route::post('/getuserfacilitymapById', 'Users\UsersController@getuserfacilitymapById');
+
+Route::post('/adduserStore', 'Users\UsersController@adduserStore');
+Route::post('/userfacilitymapStore', 'Users\UsersController@userfacilitymapStore');
+Route::post('/edituserUpdate', 'Users\UsersController@edituserUpdate');
+
+//Facility Module
+
+Route::get('/facilities', 'Facilities\FacilitiesController@index')->name('facilities.index');
+Route::post('/getfacility', 'Facilities\FacilitiesController@getFacility')->name('facilities.get');
+Route::get('/addfacility', 'Facilities\FacilitiesController@addfacility');
+Route::post('/addfacilityStore', 'Facilities\FacilitiesController@addfacilityStore');
+Route::get('/editfacility/{id}', 'Facilities\FacilitiesController@editfacility');
+Route::post('/editfacilityUpdate', 'Facilities\FacilitiesController@editfacilityUpdate');
+Route::post('/getDistrict', 'Facilities\FacilitiesController@getDistrict');
+
+
+
+
+// Route::get("/adduser", function()
+// {
+//    return View::make("adduser");
+// });
+

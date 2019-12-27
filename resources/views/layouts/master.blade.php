@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-@include('layoutsections.header')
+    @include('layoutsections.header')
+    @include('layoutsections.scripts')
+<style>
+.mandatory{color: #f30f00;}
+</style>
 </head>
 <!--body with default sidebar pinned -->
 <body class="sidebar-pinned">
@@ -21,9 +25,16 @@
     <section class="admin-content">
             <!-- BEGIN PlACE PAGE CONTENT HERE -->
             <!--  container or container-fluid as per your need           -->
-                <div class="container">
+                <!-- <div class="container">
+                <section class="content"> -->
 
-                </div>
+                    @section('content')
+                        
+                    @show
+
+                    
+                    <!-- </section>
+                </div> -->
             <!-- END PLACE PAGE CONTENT HERE -->
     </section>
 
