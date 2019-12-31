@@ -23,6 +23,8 @@ class Login extends Model
             session(['email' => $result[0]->email]);
             session(['phone' => $result[0]->phone]);
             session(['userId' => $result[0]->user_id]);
+            session(['role' => 'user']);
+            session(['login' => true]);
         }
         // dd($result);
         // dd(Session::token());

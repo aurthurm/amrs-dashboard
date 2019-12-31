@@ -12,11 +12,7 @@
 <script src="{{ asset('assets/js/atmos.min.js') }}"></script>
 <script src="{{ asset('/assets/js/deforayValidation.js') }}"></script>
 <!--page specific scripts for demo-->
-{{-- <script type="text/javascript" src="{{asset('assets/vendor/DataTables/datatables.min.js') }}"></script> --}}
 <script src="{{asset('assets/vendor/DataTables/datatables.min.js') }}"></script>
-{{-- <script src="{{asset('assets/vendor/DataTables/datatable.js') }}"></script> --}}
-{{-- <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script> --}}
 <script src="{{asset('assets/vendor/timepicker/bootstrap-timepicker.min.js') }}"></script>
 <script src="{{asset('assets/vendor/datedropper/datedropper.min.js') }}"></script>
 <script src="{{asset ('assets/vendor/dropzone/dropzone.js') }}"   ></script>

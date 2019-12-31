@@ -59,8 +59,10 @@ Route::get('/editfacility/{id}', 'Facilities\FacilitiesController@editfacility')
 Route::post('/editfacilityUpdate', 'Facilities\FacilitiesController@editfacilityUpdate');
 Route::post('/getDistrict', 'Facilities\FacilitiesController@getDistrict');
 
-
-
+//AMR data
+Route::get('/amrdata', 'Amrdata\AmrdataController@index')->name('amrdata.index');
+Route::post('/getamrdata', 'Amrdata\AmrdataController@getamrdata')->name('amrdata.get');
+Route::post('/getFilterData', 'Amrdata\AmrdataController@getFilterData');
 
 // Route::get("/adduser", function()
 // {

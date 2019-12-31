@@ -20,7 +20,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        if(session('login')==true){
+            return view('users.index');
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
         // $user = User::select('name','email','mobile_no','username','status');
         // return Datatables::of($user)->make(true);
     }
@@ -49,7 +54,12 @@ class UsersController extends Controller
      */
     public function adduser()
     {
-        return view('users.adduser');
+        if(session('login')==true){
+            return view('users.adduser');
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     public function userfacilitymap()
@@ -58,7 +68,12 @@ class UsersController extends Controller
         $facilitymodel = new Facilities();
         $users = $usermodel->getalluser();
         $facilities = $facilitymodel->getallfacilities();
-        return view('users.userfacilitymap',compact('users','facilities'));
+        if(session('login')==true){
+            return view('users.userfacilitymap',compact('users','facilities'));
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     public function getuserfacilitymapById(Request $request){

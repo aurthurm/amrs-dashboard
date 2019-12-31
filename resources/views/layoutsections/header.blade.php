@@ -23,10 +23,7 @@
 <!--Bootstrap + atmos Admin CSS-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/atmos.min.css') }}">
 <!-- Additional library for page -->
-{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css"/> --}}
 <link rel="stylesheet" href="{{ asset ('assets/vendor/DataTables/datatables.min.css') }}"/>
-{{-- <link rel="stylesheet" href="{{ asset('assets/vendor/DataTables/datatables.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendor/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset ('assets/vendor/datedropper/datedropper.min.css') }}">
 <link rel="stylesheet" href="{{ asset ('assets/vendor/dropzone/dropzone.css') }}">
 <link rel="stylesheet" href="{{ asset ('assets/vendor/select2/css/select2.min.css') }}">

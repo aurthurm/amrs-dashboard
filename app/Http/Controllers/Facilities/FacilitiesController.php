@@ -16,7 +16,12 @@ class FacilitiesController extends Controller
 
     public function index()
     {
-        return view('facilities.index');
+        if(session('login')==true){
+            return view('facilities.index');
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     public function getFacility(Request $request)
@@ -54,7 +59,12 @@ class FacilitiesController extends Controller
     {
         $model = new Facilities();
         $province = $model->getProvince();
-        return view('facilities.addfacility',compact('province'));
+        if(session('login')==true){
+            return view('facilities.addfacility',compact('province'));
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     public function addfacilityStore(Request $request)
