@@ -28,18 +28,18 @@
                             @endif
                         <div class="card-body">
                             <div class="row mt-4">
-                                <div class="form-group  col-md-4">
+                                <div class="form-group  col-md-3">
                                     <label>Facility Name </label>
                                     <div class="col-md-12">
                                         <select class="form-control" id="facilityCode">
-                                            <option>Select Facility Code</option>
+                                            <option value="">Select Facility Code</option>
                                             @foreach($facilityData as $type)
                                                 <option value="{{ $type->facility_code }}">{{ $type->facility_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group  col-md-4">
+                                <div class="form-group  col-md-3">
                                     <label> Gender </label>
                                     <div class="col-md-12">
                                         <select class="form-control" id="gender">
@@ -49,7 +49,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-4">
+                                <div class=" form-group col-md-4">
+                                    <label  >Select Date Range</label>
+                                    <div class="m-b-10">
+                                        <input type="text" id="specimenDate" name="dates" class="input-daterange form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mt-4">
                                     <button class="btn btn-dark float-right" onclick="getFilterData();">Fetch</button>
                                 </div>
                             </div>
@@ -113,6 +119,10 @@
 <script>
 
     $(document).ready(function () {
+        // $('input[name="dates"]').daterangepicker();
+        $('.input-daterange').daterangepicker({
+            locale: { format: 'DD/MM/YYYY' }
+        });
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,12 +140,16 @@
             //   url:  '{!! url("user.index") !!}',
             //   type: 'POST',
             //  },
+            
             ajax: {
                 url:'{{ url("getamrdata") }}',
                 type: 'POST',
             },
+            dom: 'lBfrtip',
+            buttons: [
+                'excel'
+            ],
             columns: [
-                    
                     { data: 'laboratory', name: 'laboratory' },
                     { data: 'origin', name: 'origin' },
                     { data: 'patient_id', name: 'patient_id' },
@@ -180,8 +194,10 @@
     });
 
     function getFilterData(){
+        var specimenDate = $('#specimenDate').val();
         var facilityCode = $("#facilityCode").val();
         var gender = $("#gender").val();
+        alert(specimenDate);
         $('#example_tbl').DataTable({
             //DataTable Options
             "destroy": true,
@@ -202,7 +218,7 @@
             ajax: {
                 url: '{{ url("getFilterData") }}',
                 type: 'POST',
-                data: { facilityCode:facilityCode,gender:gender },
+                data: { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
             },
             columns: [
                     

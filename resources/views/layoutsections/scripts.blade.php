@@ -12,12 +12,12 @@
 <script src="{{ asset('assets/js/atmos.min.js') }}"></script>
 <script src="{{ asset('/assets/js/deforayValidation.js') }}"></script>
 <!--page specific scripts for demo-->
-<script src="{{asset('assets/vendor/DataTables/datatables.min.js') }}"></script>
+<script src="{{asset('assets/vendor/DataTables1/datatables.min.js') }}"></script>
 <script src="{{asset('assets/vendor/timepicker/bootstrap-timepicker.min.js') }}"></script>
 <script src="{{asset('assets/vendor/datedropper/datedropper.min.js') }}"></script>
 <script src="{{asset ('assets/vendor/dropzone/dropzone.js') }}"   ></script>
 <script src="{{asset ('assets/vendor/jquery.mask/jquery.mask.min.js') }}"></script>
-{{-- <script src="{{asset ('assets/js/form-data.js') }}"></script> --}}
+<script src="{{asset ('assets/js/form-data.js') }}"></script>
 <script src="{{asset ('assets/vendor/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script src="{{asset ('assets/js/swal-data.js') }}"></script>
 <script src="{{asset ('assets/vendor/select2/js/select2.full.min.js') }}"></script>

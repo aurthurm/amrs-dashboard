@@ -30,7 +30,6 @@
     }
 }(this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
-
         //default settings for options
         this.parentEl = 'body';
         this.element = $(element);
@@ -97,7 +96,9 @@
         options = $.extend(this.element.data(), options);
 
         //html template for the picker UI
-        if (typeof options.template !== 'string' && !(options.template instanceof $))
+        
+        if (typeof options.template !== 'string' && !(options.template instanceof $)){
+            
             options.template =
             '<div class="daterangepicker">' +
                 '<div class="ranges"></div>' +
@@ -115,7 +116,7 @@
                     '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
                 '</div>' +
             '</div>';
-
+        }
         this.parentEl = (options.parentEl && $(options.parentEl).length) ? $(options.parentEl) : $(this.parentEl);
         this.container = $(options.template).appendTo(this.parentEl);
 

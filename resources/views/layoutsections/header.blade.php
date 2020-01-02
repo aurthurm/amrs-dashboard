@@ -26,4 +26,3 @@
 <link rel="stylesheet" href="{{ asset ('assets/vendor/DataTables/datatables.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset ('assets/vendor/datedropper/datedropper.min.css') }}">
 <link rel="stylesheet" href="{{ asset ('assets/vendor/dropzone/dropzone.css') }}">
-<link rel="stylesheet" href="{{ asset ('assets/vendor/select2/css/select2.min.css') }}">

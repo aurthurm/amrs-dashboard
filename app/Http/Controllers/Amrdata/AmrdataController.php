@@ -55,6 +55,11 @@ class AmrdataController extends Controller
 
    public function getFilterData(Request $request){
        $requestData = $request->all();
+       $specimenDate = $request->input('specimenDate');
+       $specimenDate = explode(' - ',$specimenDate);
+       $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
+       $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
+    //    dd($startSpecimenDate);
        $data = DB::table('users')
             ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
             ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
@@ -64,6 +69,8 @@ class AmrdataController extends Controller
                 $data=$data->where('facilities.facility_code',$request->input('facilityCode'));
             if($request->input('gender'))
                 $data=$data->where('amr_surveillance.sex',$request->input('gender'));
+            if($request->input('specimenDate'))
+                $data=$data->whereBetween('amr_surveillance.spec_date',[$startSpecimenDate,$endSpecimenDate]);
             $data ->select('amr_surveillance.*')
             ->get();
         //   return NULL;
