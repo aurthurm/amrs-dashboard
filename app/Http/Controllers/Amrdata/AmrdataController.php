@@ -39,7 +39,20 @@ class AmrdataController extends Controller
             ->select('amr_surveillance.*')
             ->get();
             // dd($data);
-            return DataTables::of($data)->make(true);
+            return DataTables::of($data)
+                    ->editColumn('date_birth', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->date_birth));
+                        return $dob;
+                    })
+                    ->editColumn('spec_date', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->spec_date));
+                        return $dob;
+                    })
+                    ->editColumn('date_data', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->date_data));
+                        return $dob;
+                    })
+                    ->make(true);
         }
         else{
             $data = DB::table('amr_surveillance')
@@ -48,6 +61,18 @@ class AmrdataController extends Controller
                     ->get();
                     // dd($data);
             return DataTables::of($data)
+                        ->editColumn('date_birth', function ($data) {
+                            $dob = date("d-M-Y", strtotime($data->date_birth));
+                            return $dob;
+                        })
+                        ->editColumn('spec_date', function ($data) {
+                            $dob = date("d-M-Y", strtotime($data->spec_date));
+                            return $dob;
+                        })
+                        ->editColumn('date_data', function ($data) {
+                            $dob = date("d-M-Y", strtotime($data->date_data));
+                            return $dob;
+                        })
                         ->make(true);
         }
 
@@ -56,7 +81,7 @@ class AmrdataController extends Controller
    public function getFilterData(Request $request){
        $requestData = $request->all();
        $specimenDate = $request->input('specimenDate');
-       $specimenDate = explode(' - ',$specimenDate);
+       $specimenDate = explode(' to ',$specimenDate);
        $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
        $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
     //    dd($startSpecimenDate);
@@ -74,8 +99,22 @@ class AmrdataController extends Controller
             $data ->select('amr_surveillance.*')
             ->get();
         //   return NULL;
-        if(!empty($data))
-            return DataTables::of($data)->make(true);
+        if(!empty($data)){
+            return DataTables::of($data)
+                    ->editColumn('date_birth', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->date_birth));
+                        return $dob;
+                    })
+                    ->editColumn('spec_date', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->spec_date));
+                        return $dob;
+                    })
+                    ->editColumn('date_data', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->date_data));
+                        return $dob;
+                    })
+                    ->make(true);
+        }
         else
             return 0;
    }

@@ -23,6 +23,6 @@
 <!--Bootstrap + atmos Admin CSS-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/atmos.min.css') }}">
 <!-- Additional library for page -->
-<link rel="stylesheet" href="{{ asset ('assets/vendor/DataTables/datatables.min.css') }}"/>
+<link rel="stylesheet" href="{{ asset ('assets/vendor/DataTables1/datatables.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset ('assets/vendor/datedropper/datedropper.min.css') }}">
 <link rel="stylesheet" href="{{ asset ('assets/vendor/dropzone/dropzone.css') }}">

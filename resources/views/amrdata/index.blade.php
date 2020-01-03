@@ -1,5 +1,15 @@
 @extends('layouts.master')
-
+<style>
+.dt-buttons.ui-buttonset{
+    margin-left: 1rem;
+}
+.dt-button.ui-button.ui-state-default.ui-button-text-only.buttons-excel.buttons-html5{
+    color: #fff;
+    border-color: #32325d;
+    background-color: #32325d;
+    margin-bottom: 1rem;
+}
+</style>
 @section('content')
 
         <div class="bg-dark">
@@ -56,13 +66,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 mt-4">
-                                    <button class="btn btn-dark float-right" onclick="getFilterData();">Fetch</button>
+                                    <button class="btn btn-dark float-right" onclick="getFilterData();">Filter</button>
                                 </div>
                             </div>
                             
                             <br/>
                             <div class="table-responsive p-t-10">
-                                <table id="example_tbl" class="table   " style="width:100%">
+                                <table id="example_tbl" class="table" style="width:100%">
                                     <thead>
                                     <tr>
                                         <!-- <th></th> -->
@@ -121,7 +131,7 @@
     $(document).ready(function () {
         // $('input[name="dates"]').daterangepicker();
         $('.input-daterange').daterangepicker({
-            locale: { format: 'DD/MM/YYYY' }
+            locale: { format: 'DD-MMM-YYYY' }
         });
         $.ajaxSetup({
             headers: {
@@ -132,14 +142,9 @@
             //DataTable Options
             processing: true,
             serverSide: true,
-            autoWidth: true,
-            scrollX: false,
-            scrollCollapse: false,
-            jQueryUI: true,
-            //  ajax: {
-            //   url:  '{!! url("user.index") !!}',
-            //   type: 'POST',
-            //  },
+            // responsive: true,
+            // autoWidth: true,
+            scrollX: true,
             
             ajax: {
                 url:'{{ url("getamrdata") }}',
@@ -147,7 +152,7 @@
             },
             dom: 'lBfrtip',
             buttons: [
-                'excel'
+                {extend: 'excel', text: 'Export'}
             ],
             columns: [
                     { data: 'laboratory', name: 'laboratory' },
@@ -190,6 +195,8 @@
                 ],
             order: [[0, 'desc']]
         });
+        $( "#example_tbl" ).removeClass( "no-footer" );
+
       
     });
 
@@ -197,7 +204,6 @@
         var specimenDate = $('#specimenDate').val();
         var facilityCode = $("#facilityCode").val();
         var gender = $("#gender").val();
-        alert(specimenDate);
         $('#example_tbl').DataTable({
             //DataTable Options
             "destroy": true,
@@ -206,20 +212,19 @@
             // },
             processing: true,
             serverSide: true,
-            autoWidth: true,
-            scrollX: false,
+            // autoWidth: true,
+            scrollX: true,
             scrollCollapse: false,
-            jQueryUI: true,
-            
-            //  ajax: {
-            //   url:  '{!! url("user.index") !!}',
-            //   type: 'POST',
-            //  },
+
             ajax: {
                 url: '{{ url("getFilterData") }}',
                 type: 'POST',
                 data: { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
             },
+            dom: 'lBfrtip',
+            buttons: [
+                {extend: 'excel'}
+            ],
             columns: [
                     
                     { data: 'laboratory', name: 'laboratory' },
@@ -271,6 +276,7 @@
         //         console.log(response);
         //     }
         // });
+        $( "#example_tbl" ).removeClass( "no-footer" );
 
     }
 
