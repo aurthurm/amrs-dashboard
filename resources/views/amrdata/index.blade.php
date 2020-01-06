@@ -223,7 +223,7 @@
             },
             dom: 'lBfrtip',
             buttons: [
-                {extend: 'excel'}
+                {extend: 'excel', text: 'Export'}
             ],
             columns: [
                     

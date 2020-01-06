@@ -40,6 +40,13 @@ class AmrdataController extends Controller
             ->get();
             // dd($data);
             return DataTables::of($data)
+                     ->editColumn('laboratory', function ($data) {
+                            $model = new Facilities();
+                            $facilityName = $model->getfacility($data->laboratory);
+                            $facilityName = $facilityName[0]->facility_name;
+                            // $dob = date("d-M-Y", strtotime($data->laboratory));
+                            return $facilityName;
+                        })
                     ->editColumn('date_birth', function ($data) {
                         $dob = date("d-M-Y", strtotime($data->date_birth));
                         return $dob;
@@ -101,6 +108,10 @@ class AmrdataController extends Controller
         //   return NULL;
         if(!empty($data)){
             return DataTables::of($data)
+                    ->editColumn('date_birth', function ($data) {
+                        $dob = date("d-M-Y", strtotime($data->date_birth));
+                        return $dob;
+                    })
                     ->editColumn('date_birth', function ($data) {
                         $dob = date("d-M-Y", strtotime($data->date_birth));
                         return $dob;

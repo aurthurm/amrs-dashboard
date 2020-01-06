@@ -56,6 +56,7 @@ class Facilities extends Model
     {
         $facility = DB::table('facilities')
                 ->where('facility_id','=', $id)
+                ->orWhere('facility_code' , $id)
                 ->get();
         return $facility;
 

@@ -14,20 +14,6 @@
     <div class="admin-sidebar-wrapper js-scrollbar">
         <!-- Menu List Begins-->
         <ul class="menu">
-            <!--list item begins-->
-            {{-- <li class="menu-item active">
-                <a href="#" class="menu-link">
-                    <span class="menu-label">
-                        <span class="menu-name">Link
-                    </span>
-                    </span>
-                    <span class="menu-icon">
-                        <span class="icon-badge badge-success badge badge-pill">1</span>
-                        <i class="icon-placeholder mdi mdi-link-variant "></i>
-                    </span>
-                </a>
-            </li> --}}
-            <!--list item ends-->
 
             <!--list item begins-->
             <li class="menu-item ">
@@ -38,9 +24,9 @@
                         </span>
                         <span class="menu-info"></span>
                     </span>
-                    <span class="menu-icon">
+                   <!--  <span class="menu-icon">
                         <i class="icon-placeholder mdi mdi-link-variant "></i>
-                    </span>
+                    </span> -->
                 </a>
                 <!--submenu-->
                 <ul class="sub-menu">
@@ -82,7 +68,30 @@
                 </ul>
             </li>
             <!--list item ends-->
-
+            <!--list item begins-->
+            <li class="menu-item">
+                <a href="/amrdata" class="menu-link">
+                    <span class="menu-label">
+                        <span class="menu-name">AMR Data</span>
+                    </span>
+                   <!--  <span class="menu-icon">
+                        <span class="icon-badge badge-success badge badge-pill">1</span>
+                        <i class="icon-placeholder mdi mdi-link-variant "></i>
+                    </span> -->
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-label">
+                        <span class="menu-name">Reports</span>
+                    </span>
+                   <!--  <span class="menu-icon">
+                        <span class="icon-badge badge-success badge badge-pill">1</span>
+                        <i class="icon-placeholder mdi mdi-link-variant "></i>
+                    </span> -->
+                </a>
+            </li>
+            <!--list item ends-->
            
         </ul>
         <!-- Menu List Ends-->
