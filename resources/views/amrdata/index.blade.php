@@ -75,7 +75,7 @@
                                 <table id="example_tbl" class="table" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <!-- <th></th> -->
+                                        <th>Action</th>
                                         <th>Laboratory</th>
                                         <th>Origin</th>
                                         <th>Patient Id</th>
@@ -155,6 +155,7 @@
                 {extend: 'excel', text: 'Export'}
             ],
             columns: [
+                    {data: 'action', name: 'action', orderable: false},
                     { data: 'laboratory', name: 'laboratory' },
                     { data: 'origin', name: 'origin' },
                     { data: 'patient_id', name: 'patient_id' },

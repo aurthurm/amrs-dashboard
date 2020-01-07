@@ -63,6 +63,8 @@ Route::post('/getDistrict', 'Facilities\FacilitiesController@getDistrict');
 Route::get('/amrdata', 'Amrdata\AmrdataController@index')->name('amrdata.index');
 Route::post('/getamrdata', 'Amrdata\AmrdataController@getamrdata')->name('amrdata.get');
 Route::post('/getFilterData', 'Amrdata\AmrdataController@getFilterData');
+Route::get('/editamrdata/{id}', 'Amrdata\AmrdataController@editamrdata');
+Route::post('/amrdataUpdate', 'Amrdata\AmrdataController@amrdataUpdate');
 
 // Route::get("/adduser", function()
 // {

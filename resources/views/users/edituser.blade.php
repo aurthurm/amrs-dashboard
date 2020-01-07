@@ -20,9 +20,9 @@
         <form class="form" action="/edituserUpdate" method="post" id="edituserUpdate">
             @csrf
             <div class="card-header">
-                <center>
+                <!-- <center>
                       <h4>  Edit User Details  </h4>
-                </center>
+                </center> -->
                 <div class="float-right" style="font-size:15px;"><span class="mandatory">*</span> indicates required field &nbsp;</div>
             </div>
             <div class="card-body mt-2">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>DOB</label>
-                            <input type="date" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" value="{{ $data[0]->dob }}" >
+                            <input type="date" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" value="{{ date('d-M-Y', strtotime($data[0]->dob)) }}" >
                         </div>
                     </div>
                    

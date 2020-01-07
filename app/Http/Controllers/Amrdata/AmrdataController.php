@@ -40,13 +40,17 @@ class AmrdataController extends Controller
             ->get();
             // dd($data);
             return DataTables::of($data)
-                     ->editColumn('laboratory', function ($data) {
-                            $model = new Facilities();
-                            $facilityName = $model->getfacility($data->laboratory);
-                            $facilityName = $facilityName[0]->facility_name;
-                            // $dob = date("d-M-Y", strtotime($data->laboratory));
-                            return $facilityName;
-                        })
+                    ->addColumn('action', function($data){
+                        $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-border-color"></i></a>';
+                        return $button;
+                    })
+                    ->editColumn('laboratory', function ($data) {
+                        $model = new Facilities();
+                        $facilityName = $model->getfacility($data->laboratory);
+                        $facilityname = $facilityName[0]->facility_name;
+                        $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
+                        return $facilityname;
+                    })
                     ->editColumn('date_birth', function ($data) {
                         $dob = date("d-M-Y", strtotime($data->date_birth));
                         return $dob;
@@ -59,6 +63,7 @@ class AmrdataController extends Controller
                         $dob = date("d-M-Y", strtotime($data->date_data));
                         return $dob;
                     })
+                    ->rawColumns(['action'])
                     ->make(true);
         }
         else{
@@ -68,6 +73,17 @@ class AmrdataController extends Controller
                     ->get();
                     // dd($data);
             return DataTables::of($data)
+                        ->addColumn('action', function($data){
+                            $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                            return $button;
+                        })
+                        ->editColumn('laboratory', function ($data) {
+                            $model = new Facilities();
+                            $facilityName = $model->getfacility($data->laboratory);
+                            $facilityname = $facilityName[0]->facility_name;
+                            $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
+                            return $facilityname;
+                        })
                         ->editColumn('date_birth', function ($data) {
                             $dob = date("d-M-Y", strtotime($data->date_birth));
                             return $dob;
@@ -80,6 +96,7 @@ class AmrdataController extends Controller
                             $dob = date("d-M-Y", strtotime($data->date_data));
                             return $dob;
                         })
+                        ->rawColumns(['action'])
                         ->make(true);
         }
 
@@ -108,6 +125,17 @@ class AmrdataController extends Controller
         //   return NULL;
         if(!empty($data)){
             return DataTables::of($data)
+                    ->addColumn('action', function($data){
+                        $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                        return $button;
+                    })
+                    ->editColumn('laboratory', function ($data) {
+                        $model = new Facilities();
+                        $facilityName = $model->getfacility($data->laboratory);
+                        $facilityname = $facilityName[0]->facility_name;
+                        $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
+                        return $facilityname;
+                    })
                     ->editColumn('date_birth', function ($data) {
                         $dob = date("d-M-Y", strtotime($data->date_birth));
                         return $dob;
@@ -124,9 +152,24 @@ class AmrdataController extends Controller
                         $dob = date("d-M-Y", strtotime($data->date_data));
                         return $dob;
                     })
+                    ->rawColumns(['action'])
                     ->make(true);
         }
         else
             return 0;
    }
+
+   public function editamrdata($id){
+        $model = new  Amrdata();
+        $data = $model->getAmrdata($id);
+        $facilitymodel = new Facilities();
+        $facilityName = $facilitymodel->getallfacilities();
+        return view('amrdata.editamrdata',compact('data','facilityName'));
+   }
+    public function amrdataUpdate(Request $request)
+    {
+        $amrdatamodel = new Amrdata();
+        $amrdatamodel->updateamrdata($request);
+        return Redirect::route('amrdata.index')->with('status', 'Amrdata details Updated!');
+    }
 }

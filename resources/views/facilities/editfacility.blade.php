@@ -22,9 +22,9 @@
         <form class="form" action="/editfacilityUpdate" method="post" id="editfacilityUpdate">
             @csrf
             <div class="card-header">
-                <center>
+               <!--  <center>
                       <h4>  Edit Facility Details  </h4>
-                </center>
+                </center> -->
                 <div class="float-right" style="font-size:15px;"><span class="mandatory">*</span> indicates required field &nbsp;</div>
             </div>
             <div class="card-body mt-2">
