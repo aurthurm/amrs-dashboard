@@ -10,11 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('layouts.master');
-});
-
+if(session('login')==true){
+	Route::get('/', function () {
+	    return view('layouts.master');
+	});
+}
+else{
+	Route::get('/', function () {
+	    return Redirect::to('login')->with('status', 'Authentication Failed!');
+	});
+}
 Route::get('/login', function () {
     return view('admin.login');
 });

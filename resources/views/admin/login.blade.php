@@ -25,7 +25,7 @@
 
                             </p>
                             <p class="admin-brand-content">
-                                atmos
+                                AMRS
                             </p>
                         </div>
                         <h3 class="text-center p-b-20 fw-400">Login</h3>

@@ -93,16 +93,14 @@ class UsersController extends Controller
 
     public function edituser($id)
     {
-        //
-        $usermodel = new Users();
-        $data = $usermodel->getuser($id);
-        // dd($data[0]->id);
-        // $data1 = array(
-        //     'id' => $data->id
-        //     );
-        // $data = $data->toArray();
-        // dd($data1);
-        return view('users.edituser')->with('data', $data);
+        if(session('login')==true){
+            $usermodel = new Users();
+            $data = $usermodel->getuser($id);
+            return view('users.edituser')->with('data', $data);
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     /**

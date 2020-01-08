@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
+<?php
+    use App\Common\Common;
+    $common = new Common();
+    $dob = $common->humanDateFormat($data[0]->dob);
+?>
 <div class="bg-dark">
     <div class="container  m-b-30">
         <div class="row">
@@ -56,7 +61,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>DOB</label>
-                            <input type="date" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" value="{{ date('d-M-Y', strtotime($data[0]->dob)) }}" >
+                            <input type="text" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" value="{{ $dob }}" >
                         </div>
                     </div>
                    

@@ -160,11 +160,16 @@ class AmrdataController extends Controller
    }
 
    public function editamrdata($id){
-        $model = new  Amrdata();
-        $data = $model->getAmrdata($id);
-        $facilitymodel = new Facilities();
-        $facilityName = $facilitymodel->getallfacilities();
-        return view('amrdata.editamrdata',compact('data','facilityName'));
+        if(session('login')==true){
+            $model = new  Amrdata();
+            $data = $model->getAmrdata($id);
+            $facilitymodel = new Facilities();
+            $facilityName = $facilitymodel->getallfacilities();
+            return view('amrdata.editamrdata',compact('data','facilityName'));
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
    }
     public function amrdataUpdate(Request $request)
     {

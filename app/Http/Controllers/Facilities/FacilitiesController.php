@@ -88,17 +88,22 @@ class FacilitiesController extends Controller
 
     public function editfacility($id)
     {
-        $model = new Facilities();
-        $data = $model->getfacility($id);
-        $province = $model->getProvincebyId($data[0]->province);
-        $province_name = $province[0]->province_name;
-        $data[0]->province_name = $province_name;
-        $district = $model->getDistrictbyId($data[0]->district);
-        $district_name = $district[0]->district_name;
-        $data[0]->district_name = $district_name;
-        $province_all = $model->getProvince();
-        $districtByProv = $model->getDistrict($data[0]->province);
-        return view('facilities.editfacility',compact('data', 'province_all','districtByProv'));
+        if(session('login')==true){
+            $model = new Facilities();
+            $data = $model->getfacility($id);
+            $province = $model->getProvincebyId($data[0]->province);
+            $province_name = $province[0]->province_name;
+            $data[0]->province_name = $province_name;
+            $district = $model->getDistrictbyId($data[0]->district);
+            $district_name = $district[0]->district_name;
+            $data[0]->district_name = $district_name;
+            $province_all = $model->getProvince();
+            $districtByProv = $model->getDistrict($data[0]->province);
+            return view('facilities.editfacility',compact('data', 'province_all','districtByProv'));
+        }
+        else{
+            return Redirect::to('login')->with('status', 'Authentication Failed!');
+        }
     }
 
     public function editfacilityUpdate(Request $request)
