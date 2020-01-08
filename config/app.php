@@ -178,6 +178,7 @@ return [
 
         /* Custom Service Providers---*/
         App\Providers\CommonServiceProvider::class,
+        App\Providers\UsersServiceProvider::class,
 
     ],
 

@@ -56,14 +56,6 @@
                         </a>
 
                     </li>
-                    <li class="menu-item">
-                        <a href="/amrdata" class=" menu-link">
-                            <span class="menu-label">
-                                <span class="menu-name">AMR Data</span>
-                            </span>
-                        </a>
-                    </li>
-
 
                 </ul>
             </li>

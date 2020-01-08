@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Service\CommonService;
 
 class CommonServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,9 @@ class CommonServiceProvider extends ServiceProvider
     {
         // service container bindings
 
-        $this->app->bind('App\Service\CommonServiceInterface’, ‘App\Service\CommonService');
+        $this->app->bind('App\Service\CommonService', function ($app) {
+              return new CommonService();
+        });
     }
 
     /**

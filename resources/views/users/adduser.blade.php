@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>DOB</label>
-                            <input type="date" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" >
+                            <input type="text" class="js-datepicker form-control" placeholder="Select a Date" id="dob" name="dob" >
                         </div>
                     </div>
                     <div class="row">
@@ -116,6 +116,15 @@
 
 
 <script>
+
+$(function(){
+    $( ".js-datepicker" ).datepicker({ 
+    format: 'dd-M-yyyy',
+    changeMonth: true,
+    changeYear: true,
+    autoclose: true });
+});
+
  duplicateName = true;
     function validateNow() {
         flag = deforayValidator.init({

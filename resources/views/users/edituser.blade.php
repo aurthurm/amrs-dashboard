@@ -2,8 +2,8 @@
 
 @section('content')
 <?php
-    use App\Common\Common;
-    $common = new Common();
+    use App\Service\CommonService;
+    $common = new CommonService();
     $dob = $common->humanDateFormat($data[0]->dob);
 ?>
 <div class="bg-dark">
@@ -106,6 +106,15 @@
 
 
 <script>
+
+$(function(){
+        $( ".js-datepicker" ).datepicker({ 
+        format: 'dd-M-yyyy',
+        changeMonth: true,
+        changeYear: true,
+        autoclose: true });
+});
+
  duplicateName = true;
     function validateNow() {
         flag = deforayValidator.init({

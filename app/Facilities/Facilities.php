@@ -4,6 +4,8 @@ namespace App\Facilities;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use App\Service\FacilitiesService;
+use App\Service\CommonService;
 
 class Facilities extends Model
 {
@@ -13,14 +15,12 @@ class Facilities extends Model
     {
         //to get all request values
         $data = $request->all();
-        // $dob = date("Y-m-d", strtotime( $data['dob']));
         $lastInsertedId = 0;
         $id = 0;
         if ($request->input('facilityName')!=null && trim($request->input('facilityName')) != '') {
             $id = DB::table('facilities')->insertGetId(
                 ['facility_name' => $data['facilityName'],'facility_code' => $data['facilityCode'],'email' => $data['email'],'facility_type' => $data['facilityType'],'province' => $data['province'],'district' => $data['district'],'phone' => $data['phoneNo'],'address' => $data['addrline1'],'status' => $data['status']]
             );
-            // DB::table('user')->insert($data);
         }
         return $id;
     }
@@ -72,7 +72,7 @@ class Facilities extends Model
 
     public function updatefacility($request)
     {
-        //to get all request values
+        
         $data = $request->all();
         if ($request->input('facilityName')!=null && trim($request->input('facilityName')) != '') {
             $id = DB::table('facilities')
@@ -80,9 +80,8 @@ class Facilities extends Model
                     ->update(
                         ['facility_name' => $data['facilityName'],'facility_code' => $data['facilityCode'],'email' => $data['email'],'facility_type' => $data['facilityType'],'province' => $data['province'],'district' => $data['district'],'phone' => $data['phoneNo'],'address' => $data['addrline1'],'status' => $data['status']]
                     );
-            // DB::table('user')->insert($data);
         }
-        
+        return $data['facilityId'];
     }
     
 }

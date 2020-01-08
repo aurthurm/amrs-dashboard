@@ -65,6 +65,13 @@
         
     <div class="card">
         <div id="show_alert" style=""></div>
+         @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show ml-5 mr-5 mt-4" role="alert" id="show_alert_index" ><div class="text-center" style="font-size: 18px;"><b>
+                {{ session('status') }}</b></div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <script>$('#show_alert_index').delay(3000).fadeOut();</script>
+        @endif
         <form class="form" action="/userfacilitymapStore" method="post" id="userfacilitymapStore">
             @csrf
             <div class="card-header">

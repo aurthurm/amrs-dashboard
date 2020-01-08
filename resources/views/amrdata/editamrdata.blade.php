@@ -3,7 +3,7 @@
 @section('content')
 
 <?php
-    use App\Common\Common;
+    use App\Service\CommonService;
     $common = new Common();
     $dob = $common->humanDateFormat($data[0]->date_birth);
     $specDate = $common->humanDateFormat($data[0]->spec_date);
@@ -276,17 +276,6 @@
         }
     }
 
-    function getDistrict(val){
-        $.ajax({
-            url: "{{ url('/getDistrict') }}",
-            method: 'post',
-            data: {
-                val: val,
-            },
-            success: function(result){
-                $('#district').html(result);
-            }
-        });
-    }
+
 </script>
 @endsection

@@ -47,7 +47,7 @@ class Common extends Model
         return count($user);
     }
 
-     public function dateFormat($date) {
+    public function dateFormat($date) {
         if (!isset($date) || $date == null || $date == "" || $date == "0000-00-00") {
             return "0000-00-00";
         } else {

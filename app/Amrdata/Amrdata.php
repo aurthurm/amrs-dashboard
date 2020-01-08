@@ -3,7 +3,7 @@
 namespace App\Amrdata;
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Common\Common;
+use App\Service\CommonService;
 
 class Amrdata extends Model
 {
@@ -22,10 +22,10 @@ class Amrdata extends Model
     public function updateamrdata($request)
     {
         $data = $request->all();
-        $model = new  Common();
-        $dob = $model->dateFormat($data['dob']);
-        $specDate = $model->dateFormat($data['specDate']);
-        $dateData = $model->dateFormat($data['dateData']);
+        $commonservice = new  Common();
+        $dob = $commonservice->dateFormat($data['dob']);
+        $specDate = $commonservice->dateFormat($data['specDate']);
+        $dateData = $commonservice->dateFormat($data['dateData']);
         // dd($data);
         $id = DB::table('amr_surveillance')
                 ->where('amr_id', $data['amrId'])

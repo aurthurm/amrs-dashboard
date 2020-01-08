@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Facilities;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Facilities\Facilities;
+use App\Service\FacilitiesService;
 use Yajra\DataTables\Facades\DataTables;
 use DB;
 use Redirect;
@@ -28,10 +29,6 @@ class FacilitiesController extends Controller
     {
 
         $data = Facilities::get();
-        
-        // dd($data);
-        
-        // dd($province);
         return DataTables::of($data)
                     ->addColumn('action', function($data){
                         $button = '<a href="/editfacility/'.$data->facility_id.'" name="edit" id="'.$data->facility_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
@@ -39,14 +36,14 @@ class FacilitiesController extends Controller
                         return $button;
                     })
                     ->addColumn('province', function($data){
-                        $model = new Facilities();
-                        $province = $model->getProvincebyId($data->province);
+                        $facilityService = new FacilitiesService();
+                        $province = $facilityService->getProvincebyId($data->province);
                         $province_name = $province[0]->province_name;
                         return $province_name;
                     })
                     ->addColumn('district', function($data){
-                        $model = new Facilities();
-                        $district = $model->getDistrictbyId($data->district);
+                        $facilityService = new FacilitiesService();
+                        $district = $facilityService->getDistrictbyId($data->district);
                         $district_name = $district[0]->district_name;
                         return $district_name;
                     })
@@ -57,8 +54,8 @@ class FacilitiesController extends Controller
 
     public function addfacility()
     {
-        $model = new Facilities();
-        $province = $model->getProvince();
+        $facilityService = new FacilitiesService();
+        $province = $facilityService->getProvince();
         if(session('login')==true){
             return view('facilities.addfacility',compact('province'));
         }
@@ -69,16 +66,16 @@ class FacilitiesController extends Controller
 
     public function addfacilityStore(Request $request)
     {
-        $usermodel = new Facilities();
-        $usermodel->savefacility($request);
-        return Redirect::route('facilities.index')->with('status', 'Facility Added!');
+        $facilityService = new FacilitiesService();
+        $msg = $facilityService->savefacility($request);
+        return Redirect::route('facilities.index')->with('status', $msg);
     }
 
     public function getDistrict(Request $request)
     {
         $province = $request->val;
-        $model = new Facilities();
-        $district = $model->getDistrict($province);
+        $facilityService = new FacilitiesService();
+        $district = $facilityService->getDistrict($province);
         $options = '<option value="">Select District</option>';
         foreach($district as $districts){
             $options .= '<option value=" '.$districts->district_id.' "> '.$districts->district_name.' </option>';
@@ -89,16 +86,16 @@ class FacilitiesController extends Controller
     public function editfacility($id)
     {
         if(session('login')==true){
-            $model = new Facilities();
-            $data = $model->getfacility($id);
-            $province = $model->getProvincebyId($data[0]->province);
+            $facilityService = new FacilitiesService();
+            $data = $facilityService->getfacility($id);
+            $province = $facilityService->getProvincebyId($data[0]->province);
             $province_name = $province[0]->province_name;
             $data[0]->province_name = $province_name;
-            $district = $model->getDistrictbyId($data[0]->district);
+            $district = $facilityService->getDistrictbyId($data[0]->district);
             $district_name = $district[0]->district_name;
             $data[0]->district_name = $district_name;
-            $province_all = $model->getProvince();
-            $districtByProv = $model->getDistrict($data[0]->province);
+            $province_all = $facilityService->getProvince();
+            $districtByProv = $facilityService->getDistrict($data[0]->province);
             return view('facilities.editfacility',compact('data', 'province_all','districtByProv'));
         }
         else{
@@ -108,9 +105,9 @@ class FacilitiesController extends Controller
 
     public function editfacilityUpdate(Request $request)
     {
-        $facilitymodel = new Facilities();
-        $facilitymodel->updatefacility($request);
-        return Redirect::route('facilities.index')->with('status', 'Facility details Updated!');
+        $facilityService = new FacilitiesService();
+        $msg = $facilityService->updatefacility($request);
+        return Redirect::route('facilities.index')->with('status', $msg);
     }
 
 }
