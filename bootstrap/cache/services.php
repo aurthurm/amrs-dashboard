@@ -36,6 +36,8 @@
     32 => 'App\\Providers\\RouteServiceProvider',
     33 => 'App\\Providers\\CommonServiceProvider',
     34 => 'App\\Providers\\UsersServiceProvider',
+    35 => 'App\\Providers\\FacilitiesServiceProvider',
+    36 => 'App\\Providers\\AmrdataServiceProvider',
   ),
   'eager' => 
   array (
@@ -62,6 +64,8 @@
     20 => 'App\\Providers\\RouteServiceProvider',
     21 => 'App\\Providers\\CommonServiceProvider',
     22 => 'App\\Providers\\UsersServiceProvider',
+    23 => 'App\\Providers\\FacilitiesServiceProvider',
+    24 => 'App\\Providers\\AmrdataServiceProvider',
   ),
   'deferred' => 
   array (

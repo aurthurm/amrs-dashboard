@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Amrdata;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Amrdata\Amrdata;
-use App\Facilities\Facilities;
+use App\Service\FacilitiesService;
+use App\Service\AmrdataService;
 use Yajra\DataTables\Facades\DataTables;
 use DB;
 use Redirect;
@@ -17,8 +18,8 @@ class AmrdataController extends Controller
     public function index()
     {
         if(session('login')==true){
-            $model = new Facilities();
-            $facilityData = $model->getallfacilities();
+            $facilityService = new FacilitiesService();
+            $facilityData = $facilityService->getallfacilities();
             return view('amrdata.index',compact('facilityData'));
         }
         else{
@@ -45,8 +46,8 @@ class AmrdataController extends Controller
                         return $button;
                     })
                     ->editColumn('laboratory', function ($data) {
-                        $model = new Facilities();
-                        $facilityName = $model->getfacility($data->laboratory);
+                        $facilityService = new FacilitiesService();
+                        $facilityName = $facilityService->getfacility($data->laboratory);
                         $facilityname = $facilityName[0]->facility_name;
                         $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
                         return $facilityname;
@@ -78,8 +79,8 @@ class AmrdataController extends Controller
                             return $button;
                         })
                         ->editColumn('laboratory', function ($data) {
-                            $model = new Facilities();
-                            $facilityName = $model->getfacility($data->laboratory);
+                            $facilityService = new FacilitiesService();
+                            $facilityName = $facilityService->getfacility($data->laboratory);
                             $facilityname = $facilityName[0]->facility_name;
                             $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
                             return $facilityname;
@@ -130,8 +131,8 @@ class AmrdataController extends Controller
                         return $button;
                     })
                     ->editColumn('laboratory', function ($data) {
-                        $model = new Facilities();
-                        $facilityName = $model->getfacility($data->laboratory);
+                        $facilityService = new FacilitiesService();
+                        $facilityName = $facilityService->getfacility($data->laboratory);
                         $facilityname = $facilityName[0]->facility_name;
                         $facilityname = $facilityname.'('.$facilityName[0]->facility_code.')';
                         return $facilityname;
@@ -161,10 +162,10 @@ class AmrdataController extends Controller
 
    public function editamrdata($id){
         if(session('login')==true){
-            $model = new  Amrdata();
-            $data = $model->getAmrdata($id);
-            $facilitymodel = new Facilities();
-            $facilityName = $facilitymodel->getallfacilities();
+            $amrdataService = new  AmrdataService();
+            $data = $amrdataService->getAmrdata($id);
+            $facilityService = new FacilitiesService();
+            $facilityName = $facilityService->getallfacilities();
             return view('amrdata.editamrdata',compact('data','facilityName'));
         }
         else{
@@ -173,8 +174,8 @@ class AmrdataController extends Controller
    }
     public function amrdataUpdate(Request $request)
     {
-        $amrdatamodel = new Amrdata();
-        $amrdatamodel->updateamrdata($request);
-        return Redirect::route('amrdata.index')->with('status', 'Amrdata details Updated!');
+        $amrdataService = new AmrdataService();
+        $msg = $amrdataService->updateamrdata($request);
+        return Redirect::route('amrdata.index')->with('status', $msg);
     }
 }

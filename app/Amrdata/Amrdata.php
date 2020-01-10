@@ -13,8 +13,9 @@ class Amrdata extends Model
      public function getAmrdata($id)
     {
         $amr_surveillance = DB::table('amr_surveillance')
-                ->where('amr_id','=', $id)
-                ->get();
+    						->join('amr_antibiotic','amr_surveillance.amr_id','=','amr_antibiotic.amr_id')
+			                ->where('amr_surveillance.amr_id','=', $id)
+ 							->select('amr_surveillance.*','amr_antibiotic.*')->get();
         return $amr_surveillance;
 
     }
@@ -22,7 +23,7 @@ class Amrdata extends Model
     public function updateamrdata($request)
     {
         $data = $request->all();
-        $commonservice = new  Common();
+        $commonservice = new CommonService();
         $dob = $commonservice->dateFormat($data['dob']);
         $specDate = $commonservice->dateFormat($data['specDate']);
         $dateData = $commonservice->dateFormat($data['dateData']);
@@ -30,9 +31,20 @@ class Amrdata extends Model
         $id = DB::table('amr_surveillance')
                 ->where('amr_id', $data['amrId'])
                 ->update(
-                    ['laboratory' => $data['laboratoryName'],'origin' => $data['origin'],'patient_id' => $data['patientId'],'sex' => $data['gender'],'date_birth' => $dob,'age' => $data['age'],'pat_type' => $data['patientType'],'ward' => $data['ward'],'institut' => $data['institute'],'department' => $data['department'],'ward_type' => $data['wardType'],'spec_num' => $data['specNum'],'spec_date' => $specDate,'spec_type' => $data['specType'],'spec_code' => $data['specCode'],'spec_reas' => $data['specReas'],'isol_num' => $data['isolNum'],'organism' => $data['organism'],'org_type' => $data['orgType'],'serotype' => $data['serotype'],'beta_lact' => $data['betaLact'],'esbl' => $data['esbl'],'carbapenem' => $data['carbapenem'],'induc_cli' => $data['inducCli'],'comment' => $data['comment'],'date_data' => $dateData,'amk_nd30' => $data['amknd30'],'amc_nd20' => $data['amcnd20'],'amp_nd10' => $data['ampnd10'],'cip_nd5' => $data['cipnd5'],'gen_nd10' => $data['gennd10'],'cro_nd30' => $data['crond30'],'caz_nd30' => $data['caznd30'],'ctx_nd30' => $data['ctxnd30'],'fox_nd30' => $data['foxnd30'],'sxt_nd1_2' => $data['sxtnd12']]
+                    ['laboratory' => $data['laboratoryName'],'origin' => $data['origin'],'patient_id' => $data['patientId'],'sex' => $data['gender'],'date_birth' => $dob,'age' => $data['age'],'pat_type' => $data['patientType'],'ward' => $data['ward'],'institut' => $data['institute'],'department' => $data['department'],'ward_type' => $data['wardType'],'spec_num' => $data['specNum'],'spec_date' => $specDate,'spec_type' => $data['specType'],'spec_code' => $data['specCode'],'spec_reas' => $data['specReas'],'isol_num' => $data['isolNum'],'organism' => $data['organism'],'org_type' => $data['orgType'],'serotype' => $data['serotype'],'beta_lact' => $data['betaLact'],'esbl' => $data['esbl'],'carbapenem' => $data['carbapenem'],'mrsa_scrn' => $data['mrsaScrn'],'induc_cli' => $data['inducCli'],'comment' => $data['comment'],'date_data' => $dateData]
                 );
+        for($i = 1;$i <= $data['count'];$i++){
+        	$value = $data['antibiotic'.$i];
+	        $amr_antibiotic = DB::table('amr_antibiotic')
+	        					->where([
+	        						['amr_id','=', $data['amrId']],
+	        						['id','=', $data['antibiotic'.$i]]
+	        					])
+				                ->update(
+					                ['value' => $data[$value]]
+					            );
+	    }
         // DB::table('user')->insert($data);
-        
+        return $data['amrId'];
     }
 }

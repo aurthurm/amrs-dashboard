@@ -103,7 +103,7 @@
                                         <th>induc_cli</th>
                                         <th>comment</th>
                                         <th>date_data</th>
-                                        <th>amk_nd30</th>
+                                        <!-- <th>amk_nd30</th>
                                         <th>amc_nd20</th>
                                         <th>amp_nd10</th>
                                         <th>cip_nd5</th>
@@ -112,7 +112,7 @@
                                         <th>caz_nd30</th>
                                         <th>ctx_nd30</th>
                                         <th>fox_nd30</th>
-                                        <th>sxt_nd1_2</th>
+                                        <th>sxt_nd1_2</th> -->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -183,16 +183,16 @@
                     { data: 'induc_cli', name: 'induc_cli' },
                     { data: 'comment', name: 'comment' },
                     { data: 'date_data', name: 'date_data' },
-                    { data: 'amk_nd30', name: 'amk_nd30' },
-                    { data: 'amc_nd20', name: 'amc_nd20' },
-                    { data: 'amp_nd10', name: 'amp_nd10' },
-                    { data: 'cip_nd5', name: 'cip_nd5' },
-                    { data: 'gen_nd10', name: 'gen_nd10' },
-                    { data: 'cro_nd30', name: 'cro_nd30' },
-                    { data: 'caz_nd30', name: 'caz_nd30' },
-                    { data: 'ctx_nd30', name: 'ctx_nd30' },
-                    { data: 'fox_nd30', name: 'fox_nd30' },
-                    { data: 'sxt_nd1_2', name: 'sxt_nd1_2' },
+                    // { data: 'amk_nd30', name: 'amk_nd30' },
+                    // { data: 'amc_nd20', name: 'amc_nd20' },
+                    // { data: 'amp_nd10', name: 'amp_nd10' },
+                    // { data: 'cip_nd5', name: 'cip_nd5' },
+                    // { data: 'gen_nd10', name: 'gen_nd10' },
+                    // { data: 'cro_nd30', name: 'cro_nd30' },
+                    // { data: 'caz_nd30', name: 'caz_nd30' },
+                    // { data: 'ctx_nd30', name: 'ctx_nd30' },
+                    // { data: 'fox_nd30', name: 'fox_nd30' },
+                    // { data: 'sxt_nd1_2', name: 'sxt_nd1_2' },
                 ],
             order: [[0, 'desc']]
         });
@@ -255,16 +255,16 @@
                     { data: 'induc_cli', name: 'induc_cli' },
                     { data: 'comment', name: 'comment' },
                     { data: 'date_data', name: 'date_data' },
-                    { data: 'amk_nd30', name: 'amk_nd30' },
-                    { data: 'amc_nd20', name: 'amc_nd20' },
-                    { data: 'amp_nd10', name: 'amp_nd10' },
-                    { data: 'cip_nd5', name: 'cip_nd5' },
-                    { data: 'gen_nd10', name: 'gen_nd10' },
-                    { data: 'cro_nd30', name: 'cro_nd30' },
-                    { data: 'caz_nd30', name: 'caz_nd30' },
-                    { data: 'ctx_nd30', name: 'ctx_nd30' },
-                    { data: 'fox_nd30', name: 'fox_nd30' },
-                    { data: 'sxt_nd1_2', name: 'sxt_nd1_2' },
+                    // { data: 'amk_nd30', name: 'amk_nd30' },
+                    // { data: 'amc_nd20', name: 'amc_nd20' },
+                    // { data: 'amp_nd10', name: 'amp_nd10' },
+                    // { data: 'cip_nd5', name: 'cip_nd5' },
+                    // { data: 'gen_nd10', name: 'gen_nd10' },
+                    // { data: 'cro_nd30', name: 'cro_nd30' },
+                    // { data: 'caz_nd30', name: 'caz_nd30' },
+                    // { data: 'ctx_nd30', name: 'ctx_nd30' },
+                    // { data: 'fox_nd30', name: 'fox_nd30' },
+                    // { data: 'sxt_nd1_2', name: 'sxt_nd1_2' },
                 ],
             order: [[0, 'desc']]
         });
