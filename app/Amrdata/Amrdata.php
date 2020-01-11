@@ -13,9 +13,9 @@ class Amrdata extends Model
      public function getAmrdata($id)
     {
         $amr_surveillance = DB::table('amr_surveillance')
-    						->join('amr_antibiotic','amr_surveillance.amr_id','=','amr_antibiotic.amr_id')
+    						->join('amr_antibiotics','amr_surveillance.amr_id','=','amr_antibiotics.amr_id')
 			                ->where('amr_surveillance.amr_id','=', $id)
- 							->select('amr_surveillance.*','amr_antibiotic.*')->get();
+ 							->select('amr_surveillance.*','amr_antibiotics.*')->get();
         return $amr_surveillance;
 
     }
@@ -35,7 +35,7 @@ class Amrdata extends Model
                 );
         for($i = 1;$i <= $data['count'];$i++){
         	$value = $data['antibiotic'.$i];
-	        $amr_antibiotic = DB::table('amr_antibiotic')
+	        $amr_antibiotics = DB::table('amr_antibiotics')
 	        					->where([
 	        						['amr_id','=', $data['amrId']],
 	        						['id','=', $data['antibiotic'.$i]]

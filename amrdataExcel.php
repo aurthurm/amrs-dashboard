@@ -18,7 +18,7 @@ $fileStart = date('Ymd',strtotime($start_date));
 $fileEnd = date('Ymd',strtotime($end_date));
 // print_r($start_date);
 $rows=[];
-$sql = "Select amr_surveillance.first_name,amr_surveillance.last_name,r_specimens.ENGLISH,amr_surveillance.spec_date,r_organisms.ORG_CLEAN,'Disk',LEFT(amr_antibiotic.antibiotic,3),amr_antibiotic.value,'R' from amr_surveillance JOIN amr_antibiotic ON amr_surveillance.amr_id = amr_antibiotic.amr_id JOIN r_specimens ON amr_surveillance.spec_type = r_specimens.C_ENGLISH JOIN r_organisms ON amr_surveillance.organism = r_organisms.ORG WHERE r_organisms.STATUS='c' and amr_surveillance.spec_date BETWEEN '$start_date' AND '$end_date'";
+$sql = "Select amr_surveillance.first_name,amr_surveillance.last_name,r_specimens.ENGLISH,amr_surveillance.spec_date,r_organisms.ORG_CLEAN,'Disk',LEFT(UPPER(amr_antibiotics.antibiotic),3),amr_antibiotics.value,'R' from amr_surveillance JOIN amr_antibiotics ON amr_surveillance.amr_id = amr_antibiotics.amr_id JOIN r_specimens ON amr_surveillance.spec_type = r_specimens.C_ENGLISH JOIN r_organisms ON amr_surveillance.organism = r_organisms.ORG WHERE r_organisms.STATUS='c' and amr_surveillance.spec_date BETWEEN '$start_date' AND '$end_date'";
 
 $Connect = mysqli_connect($DB_Server, $DB_Username, $DB_Password,$DB_DBName) or die("Couldn't connect to MySQL:<br>" . mysqli_error() . "<br>" . mysqli_errno());
 //select database   
