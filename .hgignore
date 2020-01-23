@@ -2,3 +2,4 @@ syntax: regexp
 ^.idea/
 ^storage/
 ^bootstrap/cache
+^log/

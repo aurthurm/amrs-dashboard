@@ -7,15 +7,28 @@ $DB_DBName = "amrs";         //MySQL Database Name
 $DB_TBLName = "amr_surveillance"; //MySQL Table Name   
 $filename = "./excelfilename";         //File Name
 
-$start_date = readline("Enter a Start Date (yyyy-mm-dd): ");
-$end_date = readline("Enter a End Date (yyyy-mm-dd): ");
+if (isset($argc) && $argc > 1) {
+    $startDate = $argv[1];
+    if($argc >= 2){
+    	$endDate = $argv[2];
+    }
+    else{
+    	$endDate = date("Y-m-d");
+    }
+}
+else{
+	$startDate = date('Y-m-d', strtotime('-2 days', strtotime(date("Y-m-d"))));
+	$endDate = date("Y-m-d");
+}
+// $start_date = readline("Enter a Start Date (yyyy-mm-dd): ");
+// $end_date = readline("Enter a End Date (yyyy-mm-dd): ");
 
 // Output
-$start_date = date('Y-m-d',strtotime($start_date));
-$end_date = date('Y-m-d',strtotime($end_date));
+$start_date = date('Y-m-d',strtotime($startDate));
+$end_date = date('Y-m-d',strtotime($endDate));
 
-$fileStart = date('Ymd',strtotime($start_date));
-$fileEnd = date('Ymd',strtotime($end_date));
+$fileStart = date('Ymd',strtotime($startDate));
+$fileEnd = date('Ymd',strtotime($endDate));
 // print_r($start_date);
 $rows=[];
 $sql = "Select amr_surveillance.first_name,amr_surveillance.last_name,r_specimens.ENGLISH,amr_surveillance.spec_date,r_organisms.ORG_CLEAN,'Disk',LEFT(UPPER(amr_antibiotics.antibiotic),3),amr_antibiotics.value,'R' from amr_surveillance JOIN amr_antibiotics ON amr_surveillance.amr_id = amr_antibiotics.amr_id JOIN r_specimens ON amr_surveillance.spec_type = r_specimens.C_ENGLISH JOIN r_organisms ON amr_surveillance.organism = r_organisms.ORG WHERE r_organisms.STATUS='c' and amr_surveillance.spec_date BETWEEN '$start_date' AND '$end_date'";
