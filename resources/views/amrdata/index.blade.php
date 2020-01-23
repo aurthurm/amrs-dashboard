@@ -227,7 +227,7 @@
                 {extend: 'excel', text: 'Export'}
             ],
             columns: [
-                    
+                    {data: 'action', name: 'action', orderable: false},
                     { data: 'laboratory', name: 'laboratory' },
                     { data: 'origin', name: 'origin' },
                     { data: 'patient_id', name: 'patient_id' },
