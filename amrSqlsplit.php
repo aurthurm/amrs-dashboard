@@ -5,14 +5,15 @@ $DB_Username = "root"; //MySQL Username
 $DB_Password = "zaq12345";             //MySQL Password     
 $DB_DBName = "amrs";         //MySQL Database Name  
 $DB_TBLName = "amr_surveillance"; //MySQL Table Name   
-$filename = "./excelfilename";         //File Name
+//$filename = "./excelfilename";         //File Name
 
 if (isset($argc) && $argc > 1) {
-    $dbName = $argv[1];
+    $dbName = $argv[1]; // who
 }
 else{
-    echo "Please enter db name";
-    die;
+    $dbName = 'amrs_temp';
+    //echo "Please enter db name";
+    //die;
 }
 
 $flag = 0;
@@ -27,12 +28,14 @@ $Connect->autocommit(FALSE);
 
 $dysql = 'SHOW TABLES';
 $dysqlResult = $dyConnect->query($dysql);
+
 $sqlDrugs = 'SELECT distinct WHON5_TEST FROM r_drugs_ranges WHERE GUIDELINES LIKE "CLSI19" and HOST like "human"';
 $sqlDrugsResult = $Connect->query($sqlDrugs);
+
 $fullDruglist = array();
 $amrcolumnHeaders = array();
-$sqlAmr = "select * from amr_surveillance";
-$sqlAmrantibiotics = "select * from amr_antibiotics";
+$sqlAmr = "select * from amr_surveillance limit 1";
+$sqlAmrantibiotics = "select * from amr_antibiotics limit 1";
 $amrResult = $Connect->query($sqlAmr);
 $amrAntiResult = $Connect->query($sqlAmrantibiotics);
 
@@ -57,7 +60,7 @@ if(mysqli_num_rows($dysqlResult))
         $intersectArray = array();
         $diffArray = array();
         // $dyrow[0] = 'w0195who_tst';
-        if (strpos($dyrow[0], 'interpretations') === false) {
+        if (strpos($dyrow[0], '_interpretations') === false) {
             // $dyrow[0] = 'w0195who_tst';
             // print_r($dyrow[0]);
             $sql = "select * from ".$dyrow[0];
@@ -125,8 +128,9 @@ if(mysqli_num_rows($dysqlResult))
                 
                 foreach($intersectArray as $k){
                     if($row[$k]){
-                        if(isset($interpret[$k]) && $interpret[$k]!=""){
-                            $amrAntibiotics = 'INSERT into amr_antibiotics(amr_id, antibiotic, value, interpretation) VALUES ("'.$amrRowcount.'","'.$k.'","'.$row[$k].'", "'.$interpret[$k].'" )';
+                        
+                            $interpretVal = isset($interpret[$k]) ? $interpret[$k] : null;
+                            $amrAntibiotics = 'INSERT into amr_antibiotics(`amr_id`, `antibiotic`, `value`, `interpretation`) VALUES ("'.$amrRowcount.'","'.$k.'","'.$row[$k].'", "'.$interpretVal.'" )';
                             $InsertorNotAntibiotic = $Connect->query($amrAntibiotics);
                             $amrAntibioticsRowcount = $Connect->insert_id;
                             $amrantibioticInsRowcount++;
@@ -137,20 +141,7 @@ if(mysqli_num_rows($dysqlResult))
                                 $InsertedRowant++;
                             // print_r($amrAntibiotics);
                             // print_r("\n");
-                        }
-                        else{
-                            $amrAntibiotics = 'INSERT into amr_antibiotics(amr_id, antibiotic, value, interpretation) VALUES ("'.$amrRowcount.'","'.$k.'","'.$row[$k].'", "" )';
-                            $InsertorNotAntibiotic = $Connect->query($amrAntibiotics);
-                            $amrAntibioticsRowcount = $Connect->insert_id;
-                            $amrantibioticInsRowcount++;
-                            $file_data_antibiotic = $amrantibioticInsRowcount."\t".$amrAntibiotics."\n";
-                            if(!$InsertorNotAntibiotic)
-                                file_put_contents('log/amrsAntibiotic.txt',$file_data_antibiotic,FILE_APPEND);
-                            else
-                                $InsertedRowant++;
-                            // print_r($amrAntibiotics);
-                            // print_r("\n");
-                        }
+                        
                     }
                 }
             }
@@ -178,6 +169,3 @@ $Connect->close();
 // whonet db
 // $dyConnect->commit();
 // $dyConnect->close();
-
-
-?>
