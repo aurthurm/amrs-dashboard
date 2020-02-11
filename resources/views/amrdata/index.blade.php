@@ -41,10 +41,10 @@
                                 <div class="form-group  col-md-3">
                                     <label>Facility Name </label>
                                     <div class="col-md-12">
-                                        <select class="form-control" id="facilityCode">
+                                        <select class="form-control js-select2 isRequired" id="facilityCode" name="facilityCode">
                                             <option value="">Select Facility Code</option>
                                             @foreach($facilityData as $type)
-                                                <option value="{{ $type->facility_code }}">{{ $type->facility_name }}</option>
+                                                <option value="{{ $type->facility_code }}">{{ $type->facility_name }}&nbsp;&nbsp;({{ $type->facility_code }})</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -129,6 +129,7 @@
 <script>
 
     $(document).ready(function () {
+        $('.js-select2').select2();
         // $('input[name="dates"]').daterangepicker();
         $('.input-daterange').daterangepicker({
             locale: { format: 'DD-MMM-YYYY' }

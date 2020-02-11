@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Session;
 use Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Model
 {
@@ -14,22 +15,26 @@ class Login extends Model
     {
         $data = $request->all();
         $result = DB::table('users')
-            ->where(['username'=> $data['username'],'password'=>$data['password'],'status'=>'active' ])
+            ->where(['username'=> $data['username'],'status'=>'active' ])
             ->get();
         $result = $result->toArray();
         if(count($result)>0){
-            session(['username' => $result[0]->username]);
-            session(['name' => $result[0]->name]);
-            session(['email' => $result[0]->email]);
-            session(['phone' => $result[0]->phone]);
-            session(['userId' => $result[0]->user_id]);
-            session(['role' => 'user']);
-            session(['login' => true]);
+            $hashedPassword = $result[0]->password;
+            if (Hash::check($data['password'], $hashedPassword)) {
+                session(['username' => $result[0]->username]);
+                session(['name' => $result[0]->name]);
+                session(['email' => $result[0]->email]);
+                session(['phone' => $result[0]->phone]);
+                session(['userId' => $result[0]->user_id]);
+                session(['role' => 'user']);
+                session(['login' => true]);
+                return 1;
+            }
         }
-        // dd($result);
-        // dd(Session::token());
-        // dd(session('username'));
-        return $result;
+        else
+        {
+            return 0;
+        }
     }
 
     public function updatePassword($request){
@@ -38,7 +43,7 @@ class Login extends Model
             $id = DB::table('users')
                     ->where('user_id', session('userId'))
                     ->update(
-                        ['password' => $data['password']]
+                        ['password' => Hash::make($data['password'])]
                     );
             // DB::table('user')->insert($data);
         }

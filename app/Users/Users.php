@@ -4,6 +4,7 @@ namespace App\Users;
 use DB;
 use App\Service\UsersService;
 use App\Service\CommonService;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,7 +32,7 @@ class Users extends Model
         $userId = rand();
         if ($request->input('username')!=null && trim($request->input('username')) != '') {
             $id = DB::table('users')->insert(
-                ['user_id'=>$userId,'name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'password' => $data['password'],'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status']]
+                ['user_id'=>$userId,'name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'password' => Hash::make($data['password']),'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status']]
             );
         }
         $result = DB::table('users')->select('user_id')

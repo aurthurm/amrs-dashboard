@@ -12,7 +12,7 @@
 */
 if(session('login')==true){
 	Route::get('/', function () {
-	    return view('layouts.master');
+	    return view('amrdata.index');
 	});
 }
 else{

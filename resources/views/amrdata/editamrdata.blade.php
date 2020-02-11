@@ -40,7 +40,7 @@
                                 <select class="form-control js-select2 isRequired" style="width:100%;" id="laboratoryName" name="laboratoryName">
                                     <option value="">Select Facility Name</option>
                                     @foreach($facilityName as $type)
-                                        <option value="{{$type->facility_code}}" {{ $type->facility_code == $data[0]->laboratory ? 'selected':'' }}>{{ $type->facility_name }}({{ $type->facility_code }})</option>
+                                        <option value="{{$type->facility_code}}" {{ $type->facility_code == $data[0]->laboratory ? 'selected':'' }}>{{ $type->facility_name }}&nbsp;&nbsp;({{ $type->facility_code }})</option>
                                     @endforeach
                                 </select>
                             </div>

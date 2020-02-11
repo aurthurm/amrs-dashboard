@@ -21,8 +21,8 @@ class AdminController extends Controller
     {
         $loginmodel = new Login();
         $result = $loginmodel->validateLogin($request);
-        if(count($result)>0){
-            return Redirect::to('user');
+        if($result == 1){
+            return Redirect::to('amrdata');
         }
         else{
             return Redirect::to('login')->with('status', 'Authentication Failed!');
