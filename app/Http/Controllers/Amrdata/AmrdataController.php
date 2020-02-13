@@ -60,13 +60,13 @@ class AmrdataController extends Controller
                         }
                     })
                     ->editColumn('spec_date', function ($data) {
-                        if($data->date_birth){
+                        if($data->spec_date){
                             $dob = date("d-M-Y", strtotime($data->spec_date));
                             return $dob;
                         }
                     })
                     ->editColumn('date_data', function ($data) {
-                        if($data->date_birth){
+                        if($data->date_data){
                             $dob = date("d-M-Y", strtotime($data->date_data));
                             return $dob;
                         }
@@ -94,16 +94,22 @@ class AmrdataController extends Controller
                             return $facilityname;
                         })
                         ->editColumn('date_birth', function ($data) {
-                            $dob = date("d-M-Y", strtotime($data->date_birth));
-                            return $dob;
+                            if($data->date_birth){
+                                $dob = date("d-M-Y", strtotime($data->date_birth));
+                                return $dob;
+                            }
                         })
                         ->editColumn('spec_date', function ($data) {
-                            $dob = date("d-M-Y", strtotime($data->spec_date));
-                            return $dob;
+                            if($data->spec_date){
+                                $dob = date("d-M-Y", strtotime($data->spec_date));
+                                return $dob;
+                            }
                         })
                         ->editColumn('date_data', function ($data) {
-                            $dob = date("d-M-Y", strtotime($data->date_data));
-                            return $dob;
+                            if($data->date_data){
+                                $dob = date("d-M-Y", strtotime($data->date_data));
+                                return $dob;
+                            }
                         })
                         ->rawColumns(['action'])
                         ->make(true);
@@ -149,20 +155,22 @@ class AmrdataController extends Controller
                         return $facilityname;
                     })
                     ->editColumn('date_birth', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->date_birth));
-                        return $dob;
-                    })
-                    ->editColumn('date_birth', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->date_birth));
-                        return $dob;
+                        if($data->date_birth){
+                            $dob = date("d-M-Y", strtotime($data->date_birth));
+                            return $dob;
+                        }
                     })
                     ->editColumn('spec_date', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->spec_date));
-                        return $dob;
+                        if($data->spec_date){
+                            $dob = date("d-M-Y", strtotime($data->spec_date));
+                            return $dob;
+                        }
                     })
                     ->editColumn('date_data', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->date_data));
-                        return $dob;
+                        if($data->date_data){
+                            $dob = date("d-M-Y", strtotime($data->date_data));
+                            return $dob;
+                        }
                     })
                     ->rawColumns(['action'])
                     ->make(true);

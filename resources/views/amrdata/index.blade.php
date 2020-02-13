@@ -132,6 +132,13 @@
 <script>
 
     $(document).ready(function () {
+        var currentdate = new Date(); 
+        var datetime =  currentdate.getDate() + "-"
+                        + (currentdate.getMonth()+1)  + "-" 
+                        + currentdate.getFullYear() + "-"  
+                        + currentdate.getHours() + "-"  
+                        + currentdate.getMinutes() + "-" 
+                        + currentdate.getSeconds();
         $('.js-select2').select2();
         // $('input[name="dates"]').daterangepicker();
         var start = moment().subtract(3, 'months');
@@ -166,7 +173,12 @@
             },
             dom: 'lBfrtip',
             buttons: [
-                {extend: 'excel', text: 'Export'}
+                {
+                    extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
+                    exportOptions: {
+                        columns: 'th:not(:first-child)'
+                    }
+                }
             ],
             columns: [
                     {data: 'action', name: 'action', orderable: false},
@@ -216,6 +228,13 @@
     });
 
     function getFilterData(){
+        var currentdate = new Date(); 
+        var datetime =  currentdate.getDate() + "-"
+                        + (currentdate.getMonth()+1)  + "-" 
+                        + currentdate.getFullYear() + "-"  
+                        + currentdate.getHours() + "-"  
+                        + currentdate.getMinutes() + "-" 
+                        + currentdate.getSeconds();
         var specimenDate = $('#specimenDate').val();
         var facilityCode = $("#facilityCode").val();
         var gender = $("#gender").val();
@@ -238,7 +257,10 @@
             },
             dom: 'lBfrtip',
             buttons: [
-                {extend: 'excel', text: 'Export'}
+                {extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
+                exportOptions: {
+                    columns: 'th:not(:first-child)'
+                }}
             ],
             columns: [
                     {data: 'action', name: 'action', orderable: false},

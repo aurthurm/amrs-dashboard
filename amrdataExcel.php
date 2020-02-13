@@ -6,7 +6,6 @@ $DB_Password = "zaq12345";             //MySQL Password
 $DB_DBName = "amrs";         //MySQL Database Name  
 $DB_TBLName = "amr_surveillance"; //MySQL Table Name   
 $filename = "./excelfilename";         //File Name
-$dateTime = date('d-m-Y-H:i:s');
 
 if (isset($argc) && $argc > 1) {
     $startDate = $argv[1];
@@ -51,12 +50,12 @@ $sep = "\t"; //tabbed character
 // echo mysqli_fetch_field_direct($result,$i)->name . "\t";
 // }
 print("\n");
-if(file_exists('AMRS-Data-'.$dateTime.'.xls')){
-	unlink('AMRS-Data-'.$dateTime.'.xls');
+if(file_exists('baclink_'.$fileStart.'_'.$fileEnd.'.xls')){
+	unlink('baclink_'.$fileStart.'_'.$fileEnd.'.xls');
 }
 $columnHeader = '';  
 $columnHeader = "First Name" . "\t" . "Last Name" . "\t"."Specimen type". "\t"."Specimen date". "\t"."Organism". "\t"."Antibiotic". "\t"."Method". "\t"."Measurement". "\t"."Interp". "\t";
-file_put_contents('AMRS-Data-'.$dateTime.'.xls', $columnHeader."\n",FILE_APPEND);
+file_put_contents('baclink_'.$fileStart.'_'.$fileEnd.'.xls', $columnHeader."\n",FILE_APPEND);
 
     while($row = $result->fetch_row())
     {
@@ -75,7 +74,7 @@ file_put_contents('AMRS-Data-'.$dateTime.'.xls', $columnHeader."\n",FILE_APPEND)
         $schema_insert .= "\n";
         print(trim($schema_insert));
         print "\n";
-        file_put_contents('AMRS-Data-'.$dateTime.'.xls', $schema_insert,FILE_APPEND);
+        file_put_contents('baclink_'.$fileStart.'_'.$fileEnd.'.xls', $schema_insert,FILE_APPEND);
     }   
 
 ?>
