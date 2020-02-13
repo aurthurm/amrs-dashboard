@@ -131,9 +131,19 @@
     $(document).ready(function () {
         $('.js-select2').select2();
         // $('input[name="dates"]').daterangepicker();
+        var start = moment().subtract(3, 'months');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#specimenDate').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        // $('.input-daterange').daterangepicker('setDate', today);
         $('.input-daterange').daterangepicker({
+            startDate: start,
+            endDate: end,
             locale: { format: 'DD-MMM-YYYY' }
-        });
+        }, cb);
+        cb(start, end);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

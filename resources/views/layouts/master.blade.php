@@ -43,3 +43,24 @@
 @include('layoutsections.footer')
 </body>
 </html>
+<script>
+$(document).ready(function() {
+    var path = '<?php echo Request::path();?>';
+    var splitUrl = path.split('/');
+    if(splitUrl[0]=="amrdata")
+    {
+        $("#amrdata").addClass('active');  
+    }
+    else if(splitUrl[0]=="user" ||splitUrl[0]=="userfacilitymap" ||splitUrl[0]=="facilities")
+    {
+        $("#manage").addClass('opened');
+        $('#manageul').css('display','block');
+        $("#"+splitUrl[0]).addClass('active');
+    }
+    else if(splitUrl[0]=="reports" )
+    {
+        $("#reports").addClass('opened');
+        $("#"+splitUrl[0]).addClass('active');
+    }
+});
+</script>

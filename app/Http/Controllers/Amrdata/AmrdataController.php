@@ -37,9 +37,10 @@ class AmrdataController extends Controller
             ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
             ->join('amr_surveillance','facilities.facility_code','=','amr_surveillance.laboratory')
             ->where('users.user_id',session('userId'))
+            ->where('facilities.status','active')
             ->select('amr_surveillance.*')
             ->get();
-            // dd($data);
+            // print_r($data);die;
             return DataTables::of($data)
                     ->addColumn('action', function($data){
                         $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-border-color"></i></a>';
@@ -53,16 +54,22 @@ class AmrdataController extends Controller
                         return $facilityname;
                     })
                     ->editColumn('date_birth', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->date_birth));
-                        return $dob;
+                        if($data->date_birth){
+                            $dob = date("d-M-Y", strtotime($data->date_birth));
+                            return $dob;
+                        }
                     })
                     ->editColumn('spec_date', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->spec_date));
-                        return $dob;
+                        if($data->date_birth){
+                            $dob = date("d-M-Y", strtotime($data->spec_date));
+                            return $dob;
+                        }
                     })
                     ->editColumn('date_data', function ($data) {
-                        $dob = date("d-M-Y", strtotime($data->date_data));
-                        return $dob;
+                        if($data->date_birth){
+                            $dob = date("d-M-Y", strtotime($data->date_data));
+                            return $dob;
+                        }
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -71,6 +78,7 @@ class AmrdataController extends Controller
             $data = DB::table('amr_surveillance')
                     ->join('facilities','facilities.facility_code','=','amr_surveillance.laboratory')
                     ->select('amr_surveillance.*')
+                    ->where('facilities.status','active')
                     ->get();
                     // dd($data);
             return DataTables::of($data)
@@ -116,6 +124,7 @@ class AmrdataController extends Controller
             ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
             ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
             ->join('amr_surveillance','facilities.facility_code','=','amr_surveillance.laboratory')
+            ->where('facilities.status','active')
             ->where('users.user_id',session('userId'));
             if($request->input('facilityCode'))
                 $data=$data->where('facilities.facility_code',$request->input('facilityCode'));
