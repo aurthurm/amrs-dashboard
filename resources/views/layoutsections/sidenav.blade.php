@@ -52,7 +52,7 @@ $amrdata = '<li class="menu-item" id="amrdata">
     <div class="admin-sidebar-brand">
         <!-- begin sidebar branding-->
         <img class="admin-brand-logo" src="assets/img/logo.svg" width="40" alt="atmos Logo">
-        <span class="admin-brand-content"><a href="index.html">AMRS</a></span>
+        <span class="admin-brand-content"><a href="javascript:void(0);">AMRS</a></span>
         <!-- end sidebar branding-->
         <div class="ml-auto">
             <!-- sidebar pin-->

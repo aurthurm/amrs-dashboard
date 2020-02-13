@@ -5,11 +5,7 @@
     <nav class=" mr-auto my-auto">
         <ul class="nav align-items-center">
 
-            <li class="nav-item">
-                <a class="nav-link  " data-target="#siteSearchModal" data-toggle="modal" href="#">
-                    <i class=" mdi mdi-magnify mdi-24px align-middle"></i>
-                </a>
-            </li>
+            
         </ul>
     </nav>
     <nav class=" ml-auto">
@@ -31,18 +27,18 @@
                             <div class="text-overline m-b-5">today</div>
                             <a href="#" class="d-block m-b-10">
                                 <div class="card">
-                                    <div class="card-body"> <i class="mdi mdi-circle text-success"></i> All systems operational.</div>
+                                    <div class="card-body"> <i class="mdi mdi-circle text-success"></i> Lorem Ipsum dolor sit amet</div>
                                 </div>
                             </a>
                             <a href="#" class="d-block m-b-10">
                                 <div class="card">
-                                    <div class="card-body"> <i class="mdi mdi-upload-multiple "></i> File upload successful.</div>
+                                    <div class="card-body"> <i class="mdi mdi-upload-multiple "></i> Lorem Ipsum dolor sit amet</div>
                                 </div>
                             </a>
                             <a href="#" class="d-block m-b-10">
                                 <div class="card">
                                     <div class="card-body">
-                                        <i class="mdi mdi-cancel text-danger"></i> Your holiday has been denied
+                                        <i class="mdi mdi-cancel text-danger"></i>Lorem Ipsum dolor sit amet
                                     </div>
                                 </div>
                             </a>
