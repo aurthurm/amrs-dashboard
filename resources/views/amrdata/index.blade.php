@@ -65,8 +65,11 @@
                                         <input type="text" id="specimenDate" name="dates" class="input-daterange form-control" >
                                     </div>
                                 </div>
-                                <div class="col-md-2 mt-4">
+                                <div class="col-md-1 mt-4">
                                     <button class="btn btn-dark float-right" onclick="getFilterData();">Filter</button>
+                                </div>
+                                <div class="col-md-1 mt-4">
+                                    <a href="/amrdata" class="btn btn-dark float-right">Reset</a>
                                 </div>
                             </div>
                             
