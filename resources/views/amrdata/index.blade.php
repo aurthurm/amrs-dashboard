@@ -49,7 +49,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group  col-md-3">
+                                <div class="form-group  col-md-2">
                                     <label> Gender </label>
                                     <div class="col-md-12">
                                         <select class="form-control" id="gender">
@@ -59,7 +59,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" form-group col-md-4">
+                                <div class=" form-group col-md-3">
                                     <label  >Select Date Range</label>
                                     <div class="m-b-10">
                                         <input type="text" id="specimenDate" name="dates" class="input-daterange form-control" >
@@ -71,11 +71,14 @@
                                 <div class="col-md-1 mt-4">
                                     <a href="/amrdata" class="btn btn-dark float-right">Reset</a>
                                 </div>
+                                <div class="col-md-2 mt-4">
+                                    <a href="" class="btn btn-dark float-right">Manage Columns</a>
+                                </div>
                             </div>
                             
                             <br/>
                             <div class="table-responsive p-t-10">
-                                <table id="example_tbl" class="table" style="width:100%">
+                                <table id="amrDataTable" class="table" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>Action</th>
@@ -159,7 +162,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $('#example_tbl').DataTable({
+        $('#amrDataTable').DataTable({
             //DataTable Options
             processing: true,
             serverSide: true,
@@ -222,7 +225,7 @@
                 ],
             order: [[0, 'desc']]
         });
-        $( "#example_tbl" ).removeClass( "no-footer" );
+        $( "#amrDataTable" ).removeClass( "no-footer" );
 
       
     });
@@ -238,7 +241,7 @@
         var specimenDate = $('#specimenDate').val();
         var facilityCode = $("#facilityCode").val();
         var gender = $("#gender").val();
-        $('#example_tbl').DataTable({
+        $('#amrDataTable').DataTable({
             //DataTable Options
             "destroy": true,
             // "language": {
@@ -313,7 +316,7 @@
         //         console.log(response);
         //     }
         // });
-        $( "#example_tbl" ).removeClass( "no-footer" );
+        $( "#amrDataTable" ).removeClass( "no-footer" );
 
     }
 
