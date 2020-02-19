@@ -9,7 +9,7 @@ $filename = "./excelfilename";         //File Name
 
 if (isset($argc) && $argc > 1) {
     $startDate = $argv[1];
-    if($argc >= 2){
+    if($argc > 2){
     	$endDate = $argv[2];
     }
     else{

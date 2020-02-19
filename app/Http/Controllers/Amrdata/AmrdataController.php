@@ -11,9 +11,19 @@ use Yajra\DataTables\Facades\DataTables;
 use DB;
 use Redirect;
 use Session;
+use View;
+use App\Exports\AmrdataSheetExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AmrdataController extends Controller
 {
+    public function export() 
+    {
+        $data['amrdata_values'] = 'amrdata_values';
+        $data['amrdata_interpretation'] = 'amrdata_interpretation';
+        $export = new AmrdataSheetExport($data);
+        return Excel::download($export, 'amrs.xlsx');
+    }
     //
     public function index()
     {
@@ -25,6 +35,16 @@ class AmrdataController extends Controller
         else{
             return Redirect::to('login')->with('status', 'Authentication Failed!');
         }
+    }
+
+    public function amrAntibioticsShow(Request $request){
+        $data = $request->all();
+        $amrId = $data['amrId'];
+        $amrdataService = new AmrdataService();
+        $data = $amrdataService->getAmrAntibiotics($amrId);
+        $view = View::make('amrdata.amrAntibioticsShow', ['data'=>$data]);
+        $contents = (string) $view;
+        return $contents;
     }
 
     public function getamrdata(Request $request)
@@ -44,7 +64,7 @@ class AmrdataController extends Controller
             return DataTables::of($data)
                     ->addColumn('action', function($data){
                         $button = '<div class="row"><a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-border-color"></i></a>';
-                        $button .= '<a href="javascript:void(0);" onclick="showPaymentDetails(this,'.$data->amr_id.',\'amrDataTable\')" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-plus"></i></a></div>';
+                        $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-plus"></i></a></div>';
                         return $button;
                     })
                     ->editColumn('laboratory', function ($data) {

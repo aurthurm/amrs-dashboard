@@ -70,7 +70,8 @@ Route::post('/getamrdata', 'Amrdata\AmrdataController@getamrdata')->name('amrdat
 Route::post('/getFilterData', 'Amrdata\AmrdataController@getFilterData');
 Route::get('/editamrdata/{id}', 'Amrdata\AmrdataController@editamrdata');
 Route::post('/amrdataUpdate', 'Amrdata\AmrdataController@amrdataUpdate');
-
+Route::post('/amrAntibioticsShow', 'Amrdata\AmrdataController@amrAntibioticsShow');
+Route::get('amrdata/export/', 'Amrdata\AmrdataController@export');
 // Route::get("/adduser", function()
 // {
 //    return View::make("adduser");

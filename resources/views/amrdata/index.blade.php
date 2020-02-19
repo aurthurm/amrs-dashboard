@@ -37,6 +37,11 @@
                                 <script>$('#showAlertIndex').delay(3000).fadeOut();</script>
                             @endif
                         <div class="card-body">
+                            <div class = "row">
+                                <div class ="col-md-12">
+                                <a href = "/amrdata/export" class="btn btn-dark float-right">Export Data</a>
+                                </div>
+                            </div>
                             <div class="row mt-4">
                                 <div class="form-group  col-md-3">
                                     <label>Facility Name </label>
@@ -49,7 +54,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group  col-md-2">
+                                <div class="form-group  col-md-3">
                                     <label> Gender </label>
                                     <div class="col-md-12">
                                         <select class="form-control" id="gender">
@@ -71,9 +76,6 @@
                                 <div class="col-md-1 mt-4">
                                     <a href="/amrdata" class="btn btn-dark float-right">Reset</a>
                                 </div>
-                                <div class="col-md-2 mt-4">
-                                    <a href="" class="btn btn-dark float-right">Manage Columns</a>
-                                </div>
                             </div>
                             
                             <br/>
@@ -81,6 +83,7 @@
                                 <table id="amrDataTable" class="table" style="width:100%">
                                     <thead>
                                     <tr>
+                                        
                                         <th>Action</th>
                                         <th>Laboratory</th>
                                         <th>Origin</th>
@@ -109,16 +112,6 @@
                                         <th>induc_cli</th>
                                         <th>comment</th>
                                         <th>date_data</th>
-                                        <!-- <th>amk_nd30</th>
-                                        <th>amc_nd20</th>
-                                        <th>amp_nd10</th>
-                                        <th>cip_nd5</th>
-                                        <th>gen_nd10</th>
-                                        <th>cro_nd30</th>
-                                        <th>caz_nd30</th>
-                                        <th>ctx_nd30</th>
-                                        <th>fox_nd30</th>
-                                        <th>sxt_nd1_2</th> -->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -318,6 +311,36 @@
         // });
         $( "#amrDataTable" ).removeClass( "no-footer" );
 
+    }
+
+    function showAntibioticsDetails(obj,amrId) {
+	    newRow = obj.parentNode.parentNode.parentNode.rowIndex+1;
+	    len = document.getElementById("amrDataTable").rows[0].cells.length;
+	    var x=document.getElementById("amrDataTable").insertRow(newRow);
+	    cellId = "cell"+newRow;
+	    x.innerHTML="<td colspan='11' id='"+cellId+"' style='border:2px solid #3c8dbc;'></td>";
+	    obj.setAttribute("onclick", "hideAntibioticsDetails(this,"+amrId+")");
+	    //AJAX SECTION
+        $.ajax({
+            url: "{{ url('/amrAntibioticsShow') }}",
+            method: 'post',
+            data: {
+                amrId: amrId,
+            },
+            success: function(result){
+                document.getElementById(cellId).innerHTML=result;
+                $(obj).find('i').removeClass('mdi mdi-plus');
+                $(obj).find('i').addClass('mdi mdi-minus');
+            }
+        });
+    }
+
+    function hideAntibioticsDetails(obj,amrId){
+	    hideRow = obj.parentNode.parentNode.parentNode.rowIndex+1;
+	    document.getElementById("amrDataTable").deleteRow(hideRow);
+	    obj.setAttribute("onclick", "showAntibioticsDetails(this,"+amrId+")");
+	    $(obj).find('i').removeClass('mdi mdi-minus');
+	    $(obj).find('i').addClass('mdi mdi-plus');
     }
 
 </script>

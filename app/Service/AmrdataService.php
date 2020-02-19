@@ -14,6 +14,13 @@ class AmrdataService
     	$model = new  Amrdata();
         $data = $model->getAmrdata($id);
         return $data;
+	}
+	
+	public function getAmrAntibiotics($id)
+    {
+    	$model = new  Amrdata();
+        $data = $model->fetchAmrAntibiotics($id);
+        return $data;
     }
 
     public function updateamrdata($request)

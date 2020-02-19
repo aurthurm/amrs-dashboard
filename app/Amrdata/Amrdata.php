@@ -10,14 +10,21 @@ class Amrdata extends Model
     protected $table = 'amr_surveillance';
     //
 
-     public function getAmrdata($id)
+    public function getAmrdata($id)
     {
-        $amr_surveillance = DB::table('amr_surveillance')
+        $amrsurveillance = DB::table('amr_surveillance')
     						->join('amr_antibiotics','amr_surveillance.amr_id','=','amr_antibiotics.amr_id')
 			                ->where('amr_surveillance.amr_id','=', $id)
  							->select('amr_surveillance.*','amr_antibiotics.*')->get();
-        return $amr_surveillance;
+        return $amrsurveillance;
+    }
 
+    public function fetchAmrAntibiotics($id)
+    {
+        $amrAntibiotics = DB::table('amr_antibiotics')
+			                ->where('amr_id','=', $id)
+ 							->select('*')->get();
+        return $amrAntibiotics;
     }
 
     public function updateamrdata($request)
