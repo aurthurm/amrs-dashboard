@@ -14,15 +14,39 @@ use Session;
 use View;
 use App\Exports\AmrdataSheetExport;
 use Maatwebsite\Excel\Facades\Excel;
+date_default_timezone_set('Asia/Calcutta');
 
 class AmrdataController extends Controller
 {
-    public function export() 
+    public function export(Request $request) 
     {
-        $data['amrdata_values'] = 'amrdata_values';
-        $data['amrdata_interpretation'] = 'amrdata_interpretation';
-        $export = new AmrdataSheetExport($data);
-        return Excel::download($export, 'amrs.xlsx');
+        // if ($request->isMethod('post')){
+            $req = $request->all();
+            $specimenDate = $request->input('specimenDate');
+            // print_r($specimenDate);die;
+            $facilityCode = $request->input('facilityCode');
+            $gender = $request->input('gender');
+            if($specimenDate){
+                $specimenDate = explode(' to ',$specimenDate);
+                $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
+                $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
+            }
+            $datetime = date('d-m-Y-H:i:s');
+            if(file_exists('temporary')){
+                mkdir('temporary');
+            }
+            $name = 'temporary/AMRS-Data-'.$datetime;
+            $amrdata['facilityCode'] = $facilityCode;
+            $amrdata['gender'] = $gender;
+            $amrdata['startSpecimenDate'] = $startSpecimenDate;
+            $amrdata['endSpecimenDate'] = $endSpecimenDate;
+            $data['amrdata_values'] = 'amrdata_values';
+            $data['amrdata_interpretation'] = 'amrdata_interpretation';
+            $export = new AmrdataSheetExport($data,$amrdata);
+            Excel::store($export, $name.'.xlsx');
+            // return Excel::download($export, $name.'.xlsx');
+            return $name.'.xlsx';
+        // }
     }
     //
     public function index()

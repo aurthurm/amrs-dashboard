@@ -16,8 +16,9 @@ class AmrdataSheetExport implements WithMultipleSheets
 
     protected $sheets;
 
-    public function __construct(array $sheets)
+    public function __construct(array $sheets,$amrdata)
     {
+        $this->amrdata = $amrdata;
         $this->sheets = $sheets;
     }
 
@@ -29,8 +30,8 @@ class AmrdataSheetExport implements WithMultipleSheets
     public function sheets(): array
     {
         $sheets = [
-            new AmrdataExport($this->sheets['amrdata_values']),
-            new AmrdataInterpretationExport($this->sheets['amrdata_interpretation']),
+            new AmrdataExport($this->sheets['amrdata_values'],$this->amrdata),
+            new AmrdataInterpretationExport($this->sheets['amrdata_interpretation'],$this->amrdata),
         ];
 
         return $sheets;

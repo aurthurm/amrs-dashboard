@@ -39,7 +39,8 @@
                         <div class="card-body">
                             <div class = "row">
                                 <div class ="col-md-12">
-                                <a href = "/amrdata/export" class="btn btn-dark float-right">Export Data</a>
+                                <a href="javascript:void(0)" target="_blank" id="excelDownload" style="display:none;" class="btn btn-dark float-right">Export Data</a>
+                                <a href="javascript:void(0)" onclick="getExportData();"class="btn btn-dark float-right">Export Data</a>
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -300,17 +301,24 @@
                 ],
             order: [[0, 'desc']]
         });
-        // $.ajax({
-        //     url: '{{ url("getFilterData") }}',
-        //     type: 'POST',
-        //     data: { facilityCode:facilityCode },
-        //     success: function(response)
-        //     {
-        //         console.log(response);
-        //     }
-        // });
         $( "#amrDataTable" ).removeClass( "no-footer" );
 
+    }
+
+    function getExportData(){
+        var specimenDate = $('#specimenDate').val();
+        var facilityCode = $("#facilityCode").val();
+        var gender = $("#gender").val();
+        $.post("{{ url('/amrdata/export') }}",
+         { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
+        function(data){
+            // storage = "{{ base_path() . "/storage/app/"}}"+data;
+            storage = "/storage/app/"+data;
+            // $('#excelDownload').attr("href", storage);
+            // $("#excelDownload").click()
+            // window.open(storage, '_blank');
+            window.location.href = storage;
+        });
     }
 
     function showAntibioticsDetails(obj,amrId) {

@@ -17,10 +17,30 @@ class AmrdataExport implements FromCollection, WithHeadings, WithTitle
     /**
     * @return \Illuminate\Support\Collection
     */
-    
+    public function __construct(string $sheets,array $amrData)
+    {
+        $this->facilityCode = $amrData['facilityCode'];
+        $this->gender = $amrData['gender'];
+        $this->startSpecimenDate = $amrData['startSpecimenDate'];
+        $this->endSpecimenDate = $amrData['endSpecimenDate'];
+    }
+
     public function collection()
     {
-        $data = DB::table('amr_surveillance')->select('*')->get();
+        $data = DB::table('users')
+            ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
+            ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
+            ->join('amr_surveillance','facilities.facility_code','=','amr_surveillance.laboratory')
+            ->where('facilities.status','active')
+            ->where('users.user_id',session('userId'));
+            if($this->facilityCode)
+                $data=$data->where('facilities.facility_code',$this->facilityCode);
+            if($this->gender)
+                $data=$data->where('amr_surveillance.sex',$this->gender);
+            if($this->startSpecimenDate)
+                $data=$data->whereBetween('amr_surveillance.spec_date',[$this->startSpecimenDate,$this->endSpecimenDate])
+            ->select('amr_surveillance.*')
+            ->get();
         $antibioticArray = array();
         $anticol = DB::table('amr_antibiotics')->distinct()->get(['antibiotic']);
         $anticol = $anticol->toArray();

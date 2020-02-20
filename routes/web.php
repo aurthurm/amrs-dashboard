@@ -11,9 +11,9 @@
 |
 */
 if(session('login')==true){
-	Route::get('/', function () {
-	    return view('amrdata.index');
-	});
+	// Route::get('/', function () {
+	//     return view('amrdata.index');
+	// });
 }
 else{
 	Route::get('/', function () {
@@ -71,6 +71,7 @@ Route::post('/getFilterData', 'Amrdata\AmrdataController@getFilterData');
 Route::get('/editamrdata/{id}', 'Amrdata\AmrdataController@editamrdata');
 Route::post('/amrdataUpdate', 'Amrdata\AmrdataController@amrdataUpdate');
 Route::post('/amrAntibioticsShow', 'Amrdata\AmrdataController@amrAntibioticsShow');
+Route::post('amrdata/export/', 'Amrdata\AmrdataController@export');
 Route::get('amrdata/export/', 'Amrdata\AmrdataController@export');
 // Route::get("/adduser", function()
 // {
