@@ -11,9 +11,9 @@
 |
 */
 if(session('login')==true){
-	// Route::get('/', function () {
-	//     return view('amrdata.index');
-	// });
+	Route::get('/', function () {
+	    return view('amrdata.index');
+	});
 }
 else{
 	Route::get('/', function () {
