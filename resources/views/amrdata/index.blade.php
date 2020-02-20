@@ -39,7 +39,8 @@
                         <div class="card-body">
                             <div class = "row">
                                 <div class ="col-md-12">
-                                <a href="javascript:void(0)" target="_blank" id="excelDownload" style="display:none;" class="btn btn-dark float-right">Export Data</a>
+                                <a class="btn btn-default" href="amrdata/exportDownload/" style="display:none;" onclick="location.href=this.href+'?file='+excelFile;return false;"id="excelDownload" ></a>
+                                <!-- <a href="javascript:void(0)" target="_blank" id="excelDownload" style="display:none;" class="btn btn-dark float-right">Export Data</a> -->
                                 <a href="javascript:void(0)" onclick="getExportData();"class="btn btn-dark float-right">Export Data</a>
                                 </div>
                             </div>
@@ -305,6 +306,7 @@
 
     }
 
+    var excelFile;
     function getExportData(){
         var specimenDate = $('#specimenDate').val();
         var facilityCode = $("#facilityCode").val();
@@ -312,12 +314,15 @@
         $.post("{{ url('/amrdata/export') }}",
          { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
         function(data){
-            // storage = "{{ base_path() . "/storage/app/"}}"+data;
-            storage = "/storage/app/"+data;
-            // $('#excelDownload').attr("href", storage);
-            // $("#excelDownload").click()
+            console.log("{{ base_path()}}");
+            storage = "{{ base_path() . "/storage/app/"}}"+data;
+            console.log(data)
+            // storage = "/storage/app/"+data;
+            // $('#excelDownload').attr("href", data);
+            excelFile = data;
+            $("#excelDownload").click()
             // window.open(storage, '_blank');
-            window.location.href = storage;
+            // window.location.href = storage;
         });
     }
 

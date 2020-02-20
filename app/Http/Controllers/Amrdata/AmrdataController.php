@@ -14,6 +14,8 @@ use Session;
 use View;
 use App\Exports\AmrdataSheetExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Response;
+
 date_default_timezone_set('Asia/Calcutta');
 
 class AmrdataController extends Controller
@@ -23,7 +25,6 @@ class AmrdataController extends Controller
         // if ($request->isMethod('post')){
             $req = $request->all();
             $specimenDate = $request->input('specimenDate');
-            // print_r($specimenDate);die;
             $facilityCode = $request->input('facilityCode');
             $gender = $request->input('gender');
             if($specimenDate){
@@ -33,7 +34,7 @@ class AmrdataController extends Controller
             }
             $datetime = date('d-m-Y-H:i:s');
             if(file_exists('temporary')){
-                mkdir('temporary');
+                mkdir('temporary', 0777);
             }
             $name = 'temporary/AMRS-Data-'.$datetime;
             $amrdata['facilityCode'] = $facilityCode;
@@ -44,10 +45,19 @@ class AmrdataController extends Controller
             $data['amrdata_interpretation'] = 'amrdata_interpretation';
             $export = new AmrdataSheetExport($data,$amrdata);
             Excel::store($export, $name.'.xlsx');
-            // return Excel::download($export, $name.'.xlsx');
             return $name.'.xlsx';
         // }
     }
+
+    public function exportDownload(){
+        $name = explode("/",$_GET["file"])[1];
+        $file = storage_path()."/app/".$_GET["file"];
+        $headers = array(
+            'Content-Type: application/xlsx',
+          );
+        return Response::download($file, $name.'.xlsx', $headers);
+    }
+
     //
     public function index()
     {
