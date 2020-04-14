@@ -139,6 +139,7 @@ class AmrdataController extends Controller
             return DataTables::of($data)
                         ->addColumn('action', function($data){
                             $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                            $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-plus"></i></a></div>';
                             return $button;
                         })
                         ->editColumn('laboratory', function ($data) {
