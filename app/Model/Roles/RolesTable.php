@@ -19,8 +19,8 @@ class RolesTable extends Model
             $id = DB::table('roles')->insertGetId(
                 ['role_name' => $data['roleName'],
                 'role_code' => $data['roleCode'],
-                'role_description' => $data['Description'],
-                'role_status' => $data['rolesStatus'],
+                'role_description' => $data['description'],
+                'role_status' => $data['status'],
                 ]
             );
         }

@@ -1,5 +1,15 @@
 syntax: regexp
-^.idea/
+texchange.komodoproject
+^.idea
+^public/uploads/(?!index.php)
+^config/autoload/local.php
+^public/temporary/cache(?!index.php)
+^public/temporary/(?!index.php)
+^public/acl.config.json
 ^storage/
-^bootstrap/cache
-^log/
+error_log
+Thumbs.db
+Thumbs.db.orig
+.DS_Store
+.DS_Store.orig
+

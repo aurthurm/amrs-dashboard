@@ -32,13 +32,12 @@
                         <div class="card-body">
                            
                             <div class="table-responsive p-t-10">
-                                <table id="example_tbl" class="table   " style="width:100%">
-                                    <thead>
+                                <table id="rolesList" class="table   " style="width:100%">
+                                <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>User Name</th>
+                                        <th style="display: none">Role Id</th>
+                                        <th>Role Name</th>
+                                        <th>Role Code</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -48,10 +47,9 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>User Name</th>
+                                        <th style="display: none">Role Id</th>
+                                        <th>Role Name</th>
+                                        <th>Role Code</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -67,36 +65,39 @@
 <script>
 
     $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#example_tbl').DataTable({
-            //DataTable Options
-            processing: true,
-            serverSide: true,
-            //  ajax: {
-            //   url:  '{!! url("user.index") !!}',
-            //   type: 'POST',
-            //  },
-            ajax: {
-                url:'{{ url("getuser") }}',
-                type: 'POST',
-            },
-            columns: [
-                    
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                    { data: 'phone', name: 'phone' },
-                    { data: 'username', name: 'username' },
-                    { data: 'status', name: 'status' },
-                    {data: 'action', name: 'action', orderable: false},
-                ],
-            order: [[0, 'desc']]
-        });
+        getRole();
+        
       
     });
+    function getRole() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $('#rolesList').DataTable({
+      processing: true,
+      destroy: true,
+      serverSide: true,
+      scrollX: false,
+      autoWidth: false,
+      ajax: {
+        url: '{{ url("getRole") }}',
+        type: 'POST',
+      },
+      columns: [
+                    
+                    { data: 'role_id', name: 'role_id', visible: false },
+                    { data: 'role_name', name: 'role_name',className : 'firstcaps' },
+                    { data: 'role_code', name: 'role_code' },
+                    { data: 'role_status', name: 'role_status',className : 'firstcaps' },
+                    {data: 'action', name: 'action', orderable: false},
+                ],
+      order: [
+        [0, 'desc']
+      ]
+    });
+  }
 
 </script>
 

@@ -5,6 +5,7 @@
     @include('layoutsections.scripts')
 <style>
 .mandatory{color: #f30f00;}
+.firstcaps{text-transform:capitalize; }
 </style>
 </head>
 <!--body with default sidebar pinned -->

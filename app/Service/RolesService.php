@@ -18,7 +18,7 @@ class RolesService
    
     public function saveRoles($request)
     {
-    	$data =  $request->all();
+		$data =  $request->all();
     	DB::beginTransaction();
     	try {
 			$Rolesmodel = new RolesTable();

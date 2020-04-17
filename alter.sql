@@ -9,3 +9,7 @@ INSERT INTO `privileges` (`resource_id`, `privilege_name`, `display_name`) VALUE
 ('App\\Http\\Controllers\\Amrdata\\AmrdataController', 'add', 'Add'), ('App\\Http\\Controllers\\Amrdata\\AmrdataController', 'edit', 'Edit'), ('App\\Http\\Controllers\\Amrdata\\AmrdataController', 'index', 'Access'),
 ('App\\Http\\Controllers\\roles\\rolesController', 'add', 'Add'), ('App\\Http\\Controllers\\roles\\rolesController', 'edit', 'Edit'), ('App\\Http\\Controllers\\roles\\rolesController', 'index', 'Access')
 
+
+
+ALTER TABLE `roles` CHANGE `status` `role_status` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'inactive';
+ALTER TABLE `roles` ADD `role_description` VARCHAR(255) NULL AFTER `role_status`;
