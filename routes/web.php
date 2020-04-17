@@ -78,3 +78,8 @@ Route::get('amrdata/exportDownload/', 'Amrdata\AmrdataController@exportDownload'
 //    return View::make("adduser");
 // });
 
+//Role Module
+Route::get('/roles', 'Roles\RolesController@index')->name('roles.index');
+Route::post('/getRole', 'Roles\RolesController@getRole');
+Route::get('/addrole', 'Roles\RolesController@addrole');
+Route::post('/addrole', 'Roles\RolesController@addrole');

@@ -21,3 +21,4 @@
 <script src="{{asset ('assets/vendor/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script src="{{asset ('assets/js/swal-data.js') }}"></script>
 <script src="{{asset ('assets/vendor/select2/js/select2.full.min.js') }}"></script>
+<script src="{{asset ('assets/js/toggle/bootstrap4-toggle.min.js') }}"></script>
