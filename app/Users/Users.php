@@ -32,7 +32,7 @@ class Users extends Model
         $userId = rand();
         if ($request->input('username')!=null && trim($request->input('username')) != '') {
             $id = DB::table('users')->insert(
-                ['user_id'=>$userId,'name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'password' => Hash::make($data['password']),'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status']]
+                ['user_id'=>$userId,'name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'password' => Hash::make($data['password']),'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status'],'role_id' => $data['roleId']]
             );
         }
         $result = DB::table('users')->select('user_id')
@@ -53,7 +53,7 @@ class Users extends Model
             $id = DB::table('users')
                     ->where('user_id', $data['userId'])
                     ->update(
-                        ['name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status']]
+                        ['name' => $data['name'],'gender' => $data['gender'],'email' => $data['email'],'dob' => $dob,'phone' => $data['phoneNo'],'alt_phone' => $data['altPhoneNo'],'address' => $data['addrline1'],'username' => $data['username'],'status' => $data['status'],'role_id' => $data['roleId']]
                     );
             $userId = $data['userId'];
         }

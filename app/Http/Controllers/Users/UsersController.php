@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Users\Users;
+use App\Service\RolesService;
 use App\Facilities\Facilities;
 use App\Service\FacilitiesService;
 use Yajra\DataTables\Facades\DataTables;
@@ -48,7 +49,9 @@ class UsersController extends Controller
     public function adduser()
     {
         if(session('login')==true){
-            return view('users.adduser');
+            $RoleService = new RolesService();
+            $data = $RoleService->getAllRole();
+            return view('users.adduser',array('role'=>$data));
         }
         else{
             return Redirect::to('login')->with('status', 'Authentication Failed!');
@@ -89,7 +92,9 @@ class UsersController extends Controller
         if(session('login')==true){
             $UsersService = new UsersService();
             $data = $UsersService->getuser($id);
-            return view('users.edituser')->with('data', $data);
+            $RoleService = new RolesService();
+            $role = $RoleService->getAllRole();
+            return view('users.edituser',array('data'=>$data,'role'=>$role));
         }
         else{
             return Redirect::to('login')->with('status', 'Authentication Failed!');

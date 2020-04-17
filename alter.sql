@@ -13,3 +13,6 @@ INSERT INTO `privileges` (`resource_id`, `privilege_name`, `display_name`) VALUE
 
 ALTER TABLE `roles` CHANGE `status` `role_status` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'inactive';
 ALTER TABLE `roles` ADD `role_description` VARCHAR(255) NULL AFTER `role_status`;
+ALTER TABLE `users` ADD `role_id` INT(20) NOT NULL AFTER `created_at`;
+update users SET role_id="6";
+

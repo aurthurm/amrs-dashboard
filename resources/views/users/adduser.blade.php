@@ -100,6 +100,17 @@
                         </div>
                     </div>
                     <div>
+                        <div class="form-group  col-md-6">
+                            <label>Roles <span class="mandatory">*</span></label>
+                            <div class="col-md-12">
+                                <select class="form-control js-select2" style="width:100%;" id="roleId" name="roleId">
+                                    <option value="">Select Role</option>
+                                    @foreach($role as $roles)
+                                        <option value="{{ $roles->role_id }}">{{ $roles->role_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>Address <span class="mandatory">*</span></label>
                             <textarea class="form-control isRequired" id="addrline1" name ="addrline1" > </textarea>
