@@ -41,7 +41,7 @@ Route::post('/duplicateValidation', 'Common\CommonController@duplicateValidation
 
 //User Module
 
-Route::get('/user', 'Users\UsersController@index')->name('users.index');
+Route::get('/user', 'Users\UsersController@index')->name('users.index')->middleware('role-authorization');;
 Route::get('/deny', 'Users\UsersController@deny')->name('users.deny');
 Route::post('/getuser', 'Users\UsersController@getUser')->name('users.get');
 // Route::resource('/user','User\UserController');
