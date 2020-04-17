@@ -122,12 +122,12 @@ function checkAll(obj){
         $( '.toggle' ).removeClass('btn btn-primary off');
         $( '.toggle' ).addClass('btn btn-dark');
     } else {
-        $( '.toggle' ).addClass('btn btn-primary off');
-        $( '.toggle' ).removeClass('btn btn-dark');
-        // $( '.toggle.off .toggle-group' ).css('left','-100px');
-        // $( '.bootstrap-switch-container' ).css('margin-left','-75px');
         $('input:checkbox').removeAttr('checked');
         $( '.cekAllPrivileges' ).val('deny');
+        $( '.toggle' ).removeClass('btn btn-dark');
+        $( '.toggle' ).addClass('btn btn-primary off');
+        // $( '.toggle.off .toggle-group' ).css('left','-100px');
+        // $( '.bootstrap-switch-container' ).css('margin-left','-75px');
     }
 }
 
