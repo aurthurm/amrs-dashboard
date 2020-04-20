@@ -31,6 +31,13 @@ $manage.= '<li class="menu-item" id="facilities">
                 </span>
             </a>
             </li>';
+$manage.= '<li class="menu-item" id="roles">
+            <a href="/roles" class=" menu-link">
+                <span class="menu-label">
+                    <span class="menu-name">Roles</span>
+                </span>
+            </a>
+            </li>';
 $manage.= '</ul></li>';
 
 $amrdata = '<li class="menu-item" id="amrdata">

@@ -49,14 +49,14 @@ class RolesTable extends Model
      public function updateRoles($params,$id)
      {
          $data = $params->all();
-         if ($params->input('eroleName')!=null && trim($params->input('eroleName')) != '') {
+         if ($params->input('roleName')!=null && trim($params->input('roleName')) != '') {
              $response = DB::table('roles')
                  ->where('role_id', '=',base64_decode($id))
                  ->update(
-                    ['role_name' => $data['eroleName'],
+                    ['role_name' => $data['roleName'],
                     'role_code' => $data['roleCode'],
-                    'role_description' => $data['eDescription'],
-                    'role_status' => $data['erolesStatus'],
+                    'role_description' => $data['description'],
+                    'role_status' => $data['status'],
                     ]);
          }
          return 1;
@@ -97,5 +97,5 @@ class RolesTable extends Model
             error_log($exc->getMessage());
             error_log($exc->getTraceAsString());
        }
-}
+    }
 }

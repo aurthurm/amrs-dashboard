@@ -82,4 +82,35 @@ class Common extends Model
         }
     }
 
+    public function checkNameValidation($request)
+    {
+        $tableName = $request['tableName'];
+        $fieldName = $request['fieldName'];
+        $value = trim($request['value']);
+        $fnct = $request['fnct'];
+        $user = array();
+        try {
+            if(isset($fnct) && trim($fnct)!==''){
+                $fields = explode("##", $fnct);
+                $primaryName = $fields[0];
+                $primaryValue = trim($fields[1]);
+                if ($value != "") {
+                    $user = DB::table($tableName)
+                        ->where($primaryName, '!=', $primaryValue)
+                        ->where($fieldName, '=', $value)
+                        ->get();
+                }
+            }else{
+                if ($value != "") {
+                    $user = DB::table($tableName)
+                        ->where($fieldName, '=', $value)
+                        ->get();
+                }
+            }
+        } catch (Exception $exc) {
+            error_log($exc->getMessage());
+        }
+        return count($user);
+    }
+
 }

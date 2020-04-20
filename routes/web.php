@@ -34,6 +34,7 @@ Route::post('/changePassword', 'Admin\AdminController@changePassword');
 //common function
 Route::post('/checkValidation', 'Common\CommonController@checkValidation');
 Route::post('/duplicateValidation', 'Common\CommonController@duplicateValidation');
+Route::post('/checkNameValidation', 'Common\CommonController@checkNameValidation');
 
 // Route::get('/user', function () {
 //     return view('user.index');
@@ -41,7 +42,7 @@ Route::post('/duplicateValidation', 'Common\CommonController@duplicateValidation
 
 //User Module
 
-Route::get('/user', 'Users\UsersController@index')->name('users.index')->middleware('role-authorization');;
+Route::get('/user', 'Users\UsersController@index')->name('users.index')->middleware('role-authorization');
 Route::get('/deny', 'Users\UsersController@deny')->name('users.deny');
 Route::post('/getuser', 'Users\UsersController@getUser')->name('users.get');
 // Route::resource('/user','User\UserController');
@@ -83,9 +84,8 @@ Route::get('/roles', 'Roles\RolesController@index')->name('roles.index');
 Route::post('/getRole', 'Roles\RolesController@getRole');
 Route::get('/addrole', 'Roles\RolesController@addrole');
 Route::post('/addrole', 'Roles\RolesController@addrole');
-
-
-
+Route::get('/editrole/{id}', 'Roles\RolesController@editrole');
+Route::post('/editrole/{id}', 'Roles\RolesController@editrole');
 
 Route::get('/unauthorized', function()
 {

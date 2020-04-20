@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-8 text-white p-t-40 p-b-90">
                 <h4 class="">
-                   Add Role Details
+                   Edit Role Details
                 </h4>
             </div>
             </div>
@@ -16,13 +16,17 @@
 </div>
 
 <div class="container  pull-up">
+    
     <div class="card">
         <div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         </div>
         <div id="show_alert" class="mt-4" style=""></div>
-        <form class="form" action="/addrole" method="post" id="addrole">
+        <form class="form" action="/editrole/{{$role[0]->role_id}}" method="post" id="editrole">
             @csrf
+            @php
+                $fnct = "role_id##".($role[0]->role_id);
+            @endphp
             <div class="card-header">
                 {{-- <center>
                       <h4>  Add Role Details  </h4>
@@ -34,24 +38,24 @@
                     <div class="row">
                         <div class="form-group  col-md-6">
                             <label>Role Name <span class="mandatory">*</span></label>
-                            <input type="text" class="form-control isRequired" placeholder="Role Name" autocomplete="off" id="roleName" name="roleName" title="Please enter role name">
+                            <input type="text" value="{{$role[0]->role_name}}" class="form-control isRequired" onblur="checkNameValidation('roles', 'role_name', this.id,'{{$fnct}}', 'The role name that you entered already exist . Please enter another name.');" placeholder="Role Name" autocomplete="off" id="roleName" name="roleName" title="Please enter role name">
                         </div>
                         <div class="form-group  col-md-6">
                             <label>Role Code <span class="mandatory">*</span></label>
-                            <input type="text" class="form-control isRequired" placeholder="Role Code" autocomplete="off" id="roleCode" name="roleCode" title="Please enter role code">
+                            <input type="text" value="{{$role[0]->role_code}}" class="form-control isRequired" onblur="checkNameValidation('roles', 'role_code', this.id,'{{$fnct}}', 'The role code that you entered already exist . Please enter another code.');" placeholder="Role Code" autocomplete="off" id="roleCode" name="roleCode" title="Please enter role code">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Description <span class="mandatory">*</span></label>
-                            <textarea class="form-control isRequired" id="description" name ="description" > </textarea>
+                            <textarea class="form-control isRequired" id="description" name ="description" >{{$role[0]->role_description}}</textarea>
                         </div>
                         <div class="form-group  col-md-6">
                         <label>Status <span class="mandatory">*</span></label>
                             <div class="col-md-12">
                                 <select class="form-control js-select2" style="width:100%;" id="status" name="status">
-                                    <option value="active" selected>Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    <option value="active" {{ $role[0]->role_status == 'active' ?  'selected':''}}>Active</option>
+                                    <option value="inactive" {{ $role[0]->role_status == 'inactive' ?  'selected':''}}>Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -78,11 +82,24 @@
                                 
                                     <ul class="list-group list-group-flush">
                                     <?php foreach ($value->privilege as $privileges) { ?>
-                                        <?php ++$counter; ?>
+                                        <?php ++$counter; 
+                                        if(isset($resourcePrivilegeMap[$role[0]->role_code]["'".$value->resource_id."'"]["'".$privileges->privilege_name."'"]) && $resourcePrivilegeMap[$role[0]->role_code]["'".$value->resource_id."'"]["'".$privileges->privilege_name."'"] == 'allow'){
+                                            $allowActive = 'allow';
+                                            $allowChecked = "checked";
+                                        }else{
+                                            $check = 0;
+                                            $allowActive = 'deny';
+                                            $allowChecked = "";
+                                        }?>
+                                        
                                         <li class="list-group-item">
                                             <label for="cekAllPrivileges<?php echo $counter;?>"><?php echo ucwords($privileges->display_name);?></label>
                                             <label class="float-right">
-                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>" name="resource['<?php echo $value->resource_id;?>']['<?php echo $privileges->privilege_name;?>']" value='allow' checked data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" onchange='checkManual(this);' >
+                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>"
+                                                name="resource['<?php echo $value->resource_id;?>']['<?php echo $privileges->privilege_name;?>']"
+                                                value="<?php echo $allowActive;?>"
+                                                data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary"
+                                                onchange='checkManual(this);' <?php echo $allowChecked;?>/>
                                             </label>
                                             
                                         </li>
@@ -96,7 +113,7 @@
                     </div>
                     <div class="col-md-12">
                         <a href="/roles" class="btn btn-default float-right mb-4 ml-4 mt-3" style="background-color:#eeeeeefa;" >Cancel</a>
-                        <button type="button" class="btn btn-dark float-right mb-4 ml-3 mt-3" onclick="validateNow();return false;">Add Role</button>
+                        <button type="button" class="btn btn-dark float-right mb-4 ml-3 mt-3" onclick="validateNow();return false;">Update Role</button>
                     </div>
             </div>
         </form>
@@ -141,12 +158,12 @@ function checkManual(obj){
  duplicateName = true;
     function validateNow() {
         flag = deforayValidator.init({
-            formId: 'addrole'
+            formId: 'editrole'
         });
         
         if (flag == true) {
             if (duplicateName) {
-                document.getElementById('addrole').submit();
+                document.getElementById('editrole').submit();
             }
         }
         else{
@@ -156,41 +173,38 @@ function checkManual(obj){
         }
     }
 
-function duplicateValidation(tableName, fieldName, obj, msg)
-{
-    // alert(fnct)
-    checkValue = document.getElementById(obj).value;
-    // alert(checkValue)
-    if(checkValue!='')
-    {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: "{{ url('/duplicateValidation') }}",
-            method: 'post',
-            data: {
-                tableName: tableName, fieldName: fieldName, value: checkValue,
-            },
-            success: function(result){
-                console.log(result)
-                if (result > 0)
-                {
-                    $("#showAlertIndex").text(msg);
-                    $('#showAlertdiv').show();
-                    duplicateName = false;
-                    document.getElementById(obj).value = "";
-                    $('#'+obj).focus();
-                    $('#showAlertdiv').delay(3000).fadeOut();
+    function checkNameValidation(tableName, fieldName, obj, fnct, msg){
+        checkValue = document.getElementById(obj).value;
+    	if($.trim(checkValue)!= ''){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-                else {
-                    duplicateName = true;
+            });
+            $.ajax({
+                url: "{{ url('/checkNameValidation') }}",
+                method: 'post',
+                data: {
+                    tableName: tableName, fieldName: fieldName, value: checkValue,fnct: fnct,
+                },
+                success: function(result){
+                    console.log(result)
+                    if (result > 0)
+                    {
+                        $("#showAlertIndex").text(msg);
+                        $('#showAlertdiv').show();
+                        duplicateName = false;
+                        document.getElementById(obj).value = "";
+                        $('#'+obj).focus();
+                        $('#'+obj).css('background-color', 'rgb(255, 255, 153)')
+                        $('#showAlertdiv').delay(3000).fadeOut();
+                    }
+                    else {
+                        duplicateName = true;
+                    }
                 }
-            }
-        });
+            });
+    	}
     }
-}
 </script>
 @endsection
