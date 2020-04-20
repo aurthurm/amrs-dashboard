@@ -83,3 +83,11 @@ Route::get('/roles', 'Roles\RolesController@index')->name('roles.index');
 Route::post('/getRole', 'Roles\RolesController@getRole');
 Route::get('/addrole', 'Roles\RolesController@addrole');
 Route::post('/addrole', 'Roles\RolesController@addrole');
+
+
+
+
+Route::get('/unauthorized', function()
+{
+    return view('error.not-authorized');
+});
