@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>IAS By Heart | Unauthorised </title>
+<title>AMRS | Unauthorised </title>
 <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo/ias-logo.png') }}"/>
 <link rel="icon" href="{{ asset('assets/images/logo/ias-logo.png') }}" type="image/png" sizes="16x16">
 <!--vendors-->
@@ -34,7 +34,7 @@
                         <h4 class="display-5 fw-600 font-secondary">Incorrect URL</h4>-->
                         <h5>We are Sorry! You have tried entering incorrect url format.Try a valid URL</h5>
                         <p class="opacity-75">
-                                You may have to head back to the dashboard. If you think something is broken, report a problem to the Administrator of <strong>IASBYHEART Team</strong>.
+                                You may have to head back to the dashboard. If you think something is broken, report a problem to the Administrator of <strong>AMRS Team</strong>.
                         </p>
                         <img alt="image" src="{{ asset('assets/images/logo/ias-logo.png') }}" style="width:30%;height:auto">
                         <div class="p-t-10">

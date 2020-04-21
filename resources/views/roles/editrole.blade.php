@@ -83,7 +83,7 @@
                                     <ul class="list-group list-group-flush">
                                     <?php foreach ($value->privilege as $privileges) { ?>
                                         <?php ++$counter; 
-                                        if(isset($resourcePrivilegeMap[$role[0]->role_code]["'".$value->resource_id."'"]["'".$privileges->privilege_name."'"]) && $resourcePrivilegeMap[$role[0]->role_code]["'".$value->resource_id."'"]["'".$privileges->privilege_name."'"] == 'allow'){
+                                        if(isset($resourcePrivilegeMap[$role[0]->role_code][$value->resource_id][$privileges->privilege_name]) && $resourcePrivilegeMap[$role[0]->role_code][$value->resource_id][$privileges->privilege_name] == 'allow'){
                                             $allowActive = 'allow';
                                             $allowChecked = "checked";
                                         }else{

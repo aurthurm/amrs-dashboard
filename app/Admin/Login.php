@@ -31,7 +31,8 @@ class Login extends Model
                 session(['email' => $result[0]->email]);
                 session(['phone' => $result[0]->phone]);
                 session(['userId' => $result[0]->user_id]);
-                session(['role' => 'user']);
+                // session(['role' => 'user']);
+                session(['roleId' => $result[0]->role_id]);
                 session(['role' => $config[$result[0]->role_code]]);
                 session(['login' => true]);
                 return 1;

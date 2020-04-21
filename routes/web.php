@@ -12,7 +12,7 @@
 */
 if(session('login')==true){
 	Route::get('/', function () {
-	    return view('amrdata.index');
+	    return view('dashboard.index');
 	});
 }
 else{
@@ -47,7 +47,7 @@ Route::get('/deny', 'Users\UsersController@deny')->name('users.deny');
 Route::post('/getuser', 'Users\UsersController@getUser')->name('users.get');
 // Route::resource('/user','User\UserController');
 Route::get('/adduser', 'Users\UsersController@adduser');
-Route::get('/userfacilitymap', 'Users\UsersController@userfacilitymap');
+Route::get('/userfacilitymap', 'Users\UsersController@userfacilitymap')->middleware('role-authorization');
 Route::get('/edituser/{id}', 'Users\UsersController@edituser');
 Route::post('/getuserfacilitymapById', 'Users\UsersController@getuserfacilitymapById');
 
@@ -57,7 +57,7 @@ Route::post('/edituserUpdate', 'Users\UsersController@edituserUpdate');
 
 //Facility Module
 
-Route::get('/facilities', 'Facilities\FacilitiesController@index')->name('facilities.index');
+Route::get('/facilities', 'Facilities\FacilitiesController@index')->name('facilities.index')->middleware('role-authorization');
 Route::post('/getfacility', 'Facilities\FacilitiesController@getFacility')->name('facilities.get');
 Route::get('/addfacility', 'Facilities\FacilitiesController@addfacility');
 Route::post('/addfacilityStore', 'Facilities\FacilitiesController@addfacilityStore');
@@ -66,7 +66,7 @@ Route::post('/editfacilityUpdate', 'Facilities\FacilitiesController@editfacility
 Route::post('/getDistrict', 'Facilities\FacilitiesController@getDistrict');
 
 //AMR data
-Route::get('/amrdata', 'Amrdata\AmrdataController@index')->name('amrdata.index');
+Route::get('/amrdata', 'Amrdata\AmrdataController@index')->name('amrdata.index')->middleware('role-authorization');
 Route::post('/getamrdata', 'Amrdata\AmrdataController@getamrdata')->name('amrdata.get');
 Route::post('/getFilterData', 'Amrdata\AmrdataController@getFilterData');
 Route::get('/editamrdata/{id}', 'Amrdata\AmrdataController@editamrdata');
@@ -80,7 +80,7 @@ Route::get('amrdata/exportDownload/', 'Amrdata\AmrdataController@exportDownload'
 // });
 
 //Role Module
-Route::get('/roles', 'Roles\RolesController@index')->name('roles.index');
+Route::get('/roles', 'Roles\RolesController@index')->name('roles.index')->middleware('role-authorization');
 Route::post('/getRole', 'Roles\RolesController@getRole');
 Route::get('/addrole', 'Roles\RolesController@addrole');
 Route::post('/addrole', 'Roles\RolesController@addrole');
@@ -91,3 +91,5 @@ Route::get('/unauthorized', function()
 {
     return view('error.not-authorized');
 });
+
+Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard.index');

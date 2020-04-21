@@ -15,18 +15,18 @@ class CheckRoleAuthorization
      */
     public function handle($request, Closure $next)
     {
-        // $role = session('role');
-        // if(($role == null)){
-        //     return redirect('/login');
-        // }
+        $role = session('role');
+        if(($role == null)){
+            return redirect('/login');
+        }
         
-        // $routeInfo = $request->route()->getAction();
-        // //dd($routeInfo);
-        // list($resource,$view) = explode("@",$routeInfo['controller']);
+        $routeInfo = $request->route()->getAction();
+        //dd($routeInfo);
+        list($resource,$view) = explode("@",$routeInfo['controller']);
            
-        // if ((isset($role[$resource][$view]) && (trim($role[$resource][$view]) == "deny")) || (!isset($role[$resource][$view]))){
-        //    return redirect('/unauthorized');
-        // }
+        if ((isset($role[$resource][$view]) && (trim($role[$resource][$view]) == "deny")) || (!isset($role[$resource][$view]))){
+           return redirect('/unauthorized');
+        }
         return $next($request);
     }
 }

@@ -34,11 +34,11 @@
                     <div class="row">
                         <div class="form-group  col-md-6">
                             <label>Role Name <span class="mandatory">*</span></label>
-                            <input type="text" class="form-control isRequired" placeholder="Role Name" autocomplete="off" id="roleName" name="roleName" title="Please enter role name">
+                            <input type="text" class="form-control isRequired" placeholder="Role Name" autocomplete="off" id="roleName" name="roleName" title="Please enter role name" onblur="duplicateValidation('roles','role_name', this.id, 'Entered role name is already exist.')">
                         </div>
                         <div class="form-group  col-md-6">
                             <label>Role Code <span class="mandatory">*</span></label>
-                            <input type="text" class="form-control isRequired" placeholder="Role Code" autocomplete="off" id="roleCode" name="roleCode" title="Please enter role code">
+                            <input type="text" class="form-control isRequired" placeholder="Role Code" autocomplete="off" id="roleCode" name="roleCode" title="Please enter role code" onblur="duplicateValidation('roles','role_code', this.id, 'Entered role code is already exist.')">
                         </div>
                     </div>
                     <div class="row">
@@ -82,7 +82,7 @@
                                         <li class="list-group-item">
                                             <label for="cekAllPrivileges<?php echo $counter;?>"><?php echo ucwords($privileges->display_name);?></label>
                                             <label class="float-right">
-                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>" name="resource['<?php echo $value->resource_id;?>']['<?php echo $privileges->privilege_name;?>']" value='allow' checked data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" onchange='checkManual(this);' >
+                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>" name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]" value='allow' checked data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" onchange='checkManual(this);' >
                                             </label>
                                             
                                         </li>
