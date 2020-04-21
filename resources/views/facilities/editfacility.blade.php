@@ -17,10 +17,16 @@
 </div>
 
 <div class="container  pull-up">
-        <div id="show_alert" style=""></div>
     <div class="card">
+        <div id="show_alert" style=""></div>
+        <div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
         <form class="form" action="/editfacilityUpdate" method="post" id="editfacilityUpdate">
             @csrf
+            @php
+                $fnct = "facility_id##".($data[0]->facility_id);
+            @endphp
             <div class="card-header">
                <!--  <center>
                       <h4>  Edit Facility Details  </h4>
@@ -36,7 +42,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Facility Code <span class="mandatory">*</span></label>
-                            <input type="text" class="form-control isRequired" placeholder="Facility Code" autocomplete="off" id="facilityCode" name="facilityCode" title="Please enter Facility Code" value="{{$data[0]->facility_code}}">
+                            <input type="text" class="form-control isRequired" placeholder="Facility Code" autocomplete="off" id="facilityCode" name="facilityCode" title="Please enter Facility Code" value="{{$data[0]->facility_code}}" onblur="checkNameValidation('facilities', 'facility_code', this.id,'{{$fnct}}', 'The facility code that you entered already exist . Please enter another code.');">
                         </div>
                     </div>
                     <div class="row">
@@ -46,7 +52,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>Facility Type</label>
-                            <input type="text" class="form-control" placeholder="Facility Type" id="facilityType" name="facilityType" value="{{$data[0]->facility_type}}">
+                            <input type="text" class="form-control" placeholder="Facility Type" id="facilityType" name="facilityType" value="{{$data[0]->facility_type}}" onblur="checkNameValidation('facilities', 'facility_type', this.id,'{{$fnct}}', 'The facility type that you entered already exist . Please enter another type.');">
                         </div>
                     </div>
                     <div class="row">
@@ -138,6 +144,40 @@
                 $('#district').html(result);
             }
         });
+    }
+
+    function checkNameValidation(tableName, fieldName, obj, fnct, msg){
+        checkValue = document.getElementById(obj).value;
+    	if($.trim(checkValue)!= ''){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ url('/checkNameValidation') }}",
+                method: 'post',
+                data: {
+                    tableName: tableName, fieldName: fieldName, value: checkValue,fnct: fnct,
+                },
+                success: function(result){
+                    console.log(result)
+                    if (result > 0)
+                    {
+                        $("#showAlertIndex").text(msg);
+                        $('#showAlertdiv').show();
+                        duplicateName = false;
+                        document.getElementById(obj).value = "";
+                        $('#'+obj).focus();
+                        $('#'+obj).css('background-color', 'rgb(255, 255, 153)')
+                        $('#showAlertdiv').delay(3000).fadeOut();
+                    }
+                    else {
+                        duplicateName = true;
+                    }
+                }
+            });
+    	}
     }
 </script>
 @endsection

@@ -3,9 +3,6 @@
 @section('content')
 {{-- {{$province}} --}}
 
-<div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-</div>
 
 <div class="bg-dark">
     <div class="container  m-b-30">
@@ -23,6 +20,9 @@
 
 <div class="container  pull-up">
     <div class="card">
+        <div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
         <div id="show_alert"  class="mt-4" style=""></div>
         <form class="form" action="/addfacilityStore" method="post" id="addfacilityStore">
             @csrf

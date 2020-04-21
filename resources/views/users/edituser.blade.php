@@ -20,10 +20,17 @@
 </div>
 
 <div class="container  pull-up">
-        <div id="show_alert" style=""></div>
+        
     <div class="card">
+        <div id="show_alert" style=""></div>
+        <div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
         <form class="form" action="/edituserUpdate" method="post" id="edituserUpdate">
             @csrf
+            @php
+                $fnct = "user_id##".($data[0]->user_id);
+            @endphp
             <div class="card-header">
                 <!-- <center>
                       <h4>  Edit User Details  </h4>
@@ -57,7 +64,7 @@
                     <div class="row">
                         <div class="form-group  col-md-6">
                             <label>Email <span class="mandatory">*</span></label>
-                            <input type="email" class="form-control isRequired" placeholder="Email" autocomplete="off" id="email" name="email" value="{{ $data[0]->email }}"  title="Please enter valid email address" >
+                            <input type="email" class="form-control isEmail" placeholder="Email" autocomplete="off" id="email" name="email" onblur="checkNameValidation('users', 'email', this.id,'{{$fnct}}', 'The email id that you entered already exist . Please enter another email.');" value="{{ $data[0]->email }}"  title="Please enter valid email address" >
                         </div>
                         <div class="form-group col-md-6">
                             <label>DOB</label>
@@ -143,6 +150,38 @@ $(function(){
             $('#show_alert').css("display","block");
         }
     }
-
+    function checkNameValidation(tableName, fieldName, obj, fnct, msg){
+        checkValue = document.getElementById(obj).value;
+    	if($.trim(checkValue)!= ''){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ url('/checkNameValidation') }}",
+                method: 'post',
+                data: {
+                    tableName: tableName, fieldName: fieldName, value: checkValue,fnct: fnct,
+                },
+                success: function(result){
+                    console.log(result)
+                    if (result > 0)
+                    {
+                        $("#showAlertIndex").text(msg);
+                        $('#showAlertdiv').show();
+                        duplicateName = false;
+                        document.getElementById(obj).value = "";
+                        $('#'+obj).focus();
+                        $('#'+obj).css('background-color', 'rgb(255, 255, 153)')
+                        $('#showAlertdiv').delay(3000).fadeOut();
+                    }
+                    else {
+                        duplicateName = true;
+                    }
+                }
+            });
+    	}
+    }
 </script>
 @endsection

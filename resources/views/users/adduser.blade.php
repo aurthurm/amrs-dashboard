@@ -2,10 +2,6 @@
 
 @section('content')
 
-<div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-</div>
-
 <div class="bg-dark">
     <div class="container  m-b-30">
         <div class="row">
@@ -21,8 +17,11 @@
 
 <div class="container  pull-up">
     <div class="card">
-        <div id="show_alert" class="mt-4" style=""></div>
         <form class="form" action="/adduserStore" method="post" id="adduserStore">
+            <div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" id="showAlertdiv" role="alert" style="display:none"><span id="showAlertIndex"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div id="show_alert" class="mt-4" style=""></div>
             @csrf
             <div class="card-header">
                 {{-- <center>
@@ -57,7 +56,7 @@
                     <div class="row">
                         <div class="form-group  col-md-6">
                             <label>Email <span class="mandatory">*</span></label>
-                            <input type="email" class="form-control isRequired" placeholder="Email" autocomplete="off" id="email" name="email"  title="Please enter valid email address" onblur="duplicateValidation('users','email', this.id, 'Entered email is already exist.')" >
+                            <input type="email" class="form-control isEmail" placeholder="Email" autocomplete="off" id="email" name="email"  title="Please enter valid email address" onblur="duplicateValidation('users','email', this.id, 'Entered email is already exist.')" >
                         </div>
                         <div class="form-group col-md-6">
                             <label>DOB</label>
