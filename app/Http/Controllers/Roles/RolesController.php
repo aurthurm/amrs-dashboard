@@ -17,12 +17,12 @@ class RolesController extends Controller
 
     public function index()
     {
-        if(session('login')==true){
+        // if(session('login')==true){
             return view('roles.index');
-        }
-        else{
-            return Redirect::to('login')->with('status', 'Authentication Failed!');
-        }
+        // }
+        // else{
+        //     return Redirect::to('login')->with('status', 'Authentication Failed!');
+        // }
     }
 
     public function addrole(Request $request)
