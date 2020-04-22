@@ -11,7 +11,10 @@
                         </h4>
                     </div>
                     <div class="col-4 text-white p-t-40 p-b-90">
-                        <a href="/addfacility" class="btn btn-light float-right"><i class="mdi mdi-account-plus mr-2"></i>Add Facility</a>
+                        <?php $role = session('role');
+                        if (isset($role['App\\Http\\Controllers\\Facilities\\FacilitiesController']['add']) && ($role['App\\Http\\Controllers\\Facilities\\FacilitiesController']['add'] == "allow")){ ?>
+                            <a href="/addfacility" class="btn btn-light float-right"><i class="mdi mdi-account-plus mr-2"></i>Add Facility</a>
+                        <?php } ?>
                     </div>
                     </div>
                 </div>

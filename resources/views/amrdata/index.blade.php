@@ -314,9 +314,9 @@
         $.post("{{ url('/amrdata/export') }}",
          { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
         function(data){
-            console.log("{{ base_path()}}");
+            // console.log("{{ base_path()}}");
             storage = "{{ base_path() . "/storage/app/"}}"+data;
-            console.log(data)
+            // console.log(data)
             // storage = "/storage/app/"+data;
             // $('#excelDownload').attr("href", data);
             excelFile = data;
@@ -330,7 +330,7 @@
 	    newRow = obj.parentNode.parentNode.parentNode.rowIndex+1;
 	    len = document.getElementById("amrDataTable").rows[0].cells.length;
 	    var x=document.getElementById("amrDataTable").insertRow(newRow);
-	    cellId = "cell"+newRow;
+	    cellId = "cell-"+amrId+newRow;
 	    x.innerHTML="<td colspan='11' id='"+cellId+"' style='border:2px solid #3c8dbc;'></td>";
 	    obj.setAttribute("onclick", "hideAntibioticsDetails(this,"+amrId+")");
 	    //AJAX SECTION

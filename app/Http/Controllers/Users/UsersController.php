@@ -37,8 +37,11 @@ class UsersController extends Controller
         $data = $UsersService->getalluser();
         return DataTables::of($data)
                     ->addColumn('action', function($data){
-                        $button = '<a href="/edituser/'.$data->user_id.'" name="edit" id="'.$data->user_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
-                        // $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                        $role = session('role');
+                        $button = '';
+                        if (isset($role['App\\Http\\Controllers\\Users\\UsersController']['edit']) && ($role['App\\Http\\Controllers\\Users\\UsersController']['edit'] == "allow")){
+                            $button .= '<a href="/edituser/'.$data->user_id.'" name="edit" id="'.$data->user_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                        }
                         return $button;
                     })
                     ->rawColumns(['action'])

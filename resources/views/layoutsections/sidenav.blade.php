@@ -34,7 +34,9 @@ if ((isset($role['App\\Http\\Controllers\\Users\\UsersController']['index']) && 
                     </span>
                 </a>
                 </li>';
-
+}
+if ((isset($role['App\\Http\\Controllers\\Users\\UsersController']['userfacilitymap']) && ($role['App\\Http\\Controllers\\Users\\UsersController']['userfacilitymap'] == "allow")) )
+{
     $manage.= '<li class="menu-item" id="userfacilitymap">
                 <a href="/userfacilitymap" class=" menu-link">
                     <span class="menu-label">

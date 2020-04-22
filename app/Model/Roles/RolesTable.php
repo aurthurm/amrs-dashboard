@@ -75,6 +75,7 @@ class RolesTable extends Model
 
    //Role Save in Acl File
    public function mapRolePrivilege($params) {
+    //    dd($params->all());
     try {
             $roleCode=$params['roleCode'];
             $configFile =  "acl.config.json";

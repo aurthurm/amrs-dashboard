@@ -11,7 +11,10 @@
                         </h4>
                     </div>
                     <div class="col-4 text-white p-t-40 p-b-90">
+                    <?php $role = session('role');
+                        if (isset($role['App\\Http\\Controllers\\Users\\UsersController']['add']) && ($role['App\\Http\\Controllers\\Users\\UsersController']['add'] == "allow")){ ?>
                         <a href="/adduser" class="btn btn-light float-right"><i class="mdi mdi-account-plus mr-2"></i>Add User</a>
+                        <?php } ?>
                     </div>
                     </div>
                 </div>

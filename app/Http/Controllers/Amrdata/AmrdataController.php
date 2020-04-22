@@ -83,9 +83,7 @@ class AmrdataController extends Controller
 
     public function getamrdata(Request $request)
     {
-
-        // $data = Users::latest()->get();
-        if(session('role')=="user"){
+        if(session('roleType')=="user"){
             $data = DB::table('users')
             ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
             ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
@@ -94,11 +92,14 @@ class AmrdataController extends Controller
             ->where('facilities.status','active')
             ->select('amr_surveillance.*')
             ->get();
-            // print_r($data);die;
             return DataTables::of($data)
                     ->addColumn('action', function($data){
-                        $button = '<div class="row"><a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-border-color"></i></a>';
-                        $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-plus"></i></a></div>';
+                        $role = session('role');
+                        $button = '';
+                        if (isset($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit']) && ($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit'] == "allow")){
+                            $button .= '<div class="row"><a href="/editamrdata/'.$data->amr_id.'" name="edit" id="amrId'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-border-color"></i></a>';
+                        }
+                        $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="antibiotics'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-3"><i class="mdi mdi-plus"></i></a></div>';
                         return $button;
                     })
                     ->editColumn('laboratory', function ($data) {
@@ -138,8 +139,12 @@ class AmrdataController extends Controller
                     // dd($data);
             return DataTables::of($data)
                         ->addColumn('action', function($data){
-                            $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
-                            $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-1"><i class="mdi mdi-plus"></i></a></div>';
+                            $role = session('role');
+                            $button = '';
+                            if (isset($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit']) && ($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit'] == "allow")){
+                                $button .= '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="amrId'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                            }
+                            $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="antibiotics'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-1"><i class="mdi mdi-plus"></i></a></div>';
                             return $button;
                         })
                         ->editColumn('laboratory', function ($data) {
@@ -174,15 +179,16 @@ class AmrdataController extends Controller
    }
 
    public function getFilterData(Request $request){
-       $requestData = $request->all();
-       $specimenDate = $request->input('specimenDate');
-       if($specimenDate){
-        $specimenDate = explode(' to ',$specimenDate);
-        $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
-        $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
-       }
+        $role = session('role');
+        $requestData = $request->all();
+        $specimenDate = $request->input('specimenDate');
+        if($specimenDate){
+            $specimenDate = explode(' to ',$specimenDate);
+            $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
+            $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
+        }
     //    dd($startSpecimenDate);
-       $data = DB::table('users')
+        $data = DB::table('users')
             ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
             ->join('facilities','facilities.facility_id','=','user_facility_map.facility_id')
             ->join('amr_surveillance','facilities.facility_code','=','amr_surveillance.laboratory')
@@ -200,7 +206,12 @@ class AmrdataController extends Controller
         if(!empty($data)){
             return DataTables::of($data)
                     ->addColumn('action', function($data){
-                        $button = '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                        $role = session('role');
+                        $button = '';
+                        if (isset($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit']) && ($role['App\\Http\\Controllers\\Amrdata\\AmrdataController']['edit'] == "allow")){
+                            $button .= '<a href="/editamrdata/'.$data->amr_id.'" name="edit" id="amrId'.$data->amr_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                        }
+                        $button .= '<a href="javascript:void(0);" onclick="showAntibioticsDetails(this,'.$data->amr_id.')" id="antibiotics'.$data->amr_id.'" class="edit btn btn-dark btn-sm ml-1"><i class="mdi mdi-plus"></i></a></div>';
                         return $button;
                     })
                     ->editColumn('laboratory', function ($data) {

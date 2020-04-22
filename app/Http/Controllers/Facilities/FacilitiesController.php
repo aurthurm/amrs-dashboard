@@ -31,8 +31,11 @@ class FacilitiesController extends Controller
         $data = Facilities::get();
         return DataTables::of($data)
                     ->addColumn('action', function($data){
-                        $button = '<a href="/editfacility/'.$data->facility_id.'" name="edit" id="'.$data->facility_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
-                        // $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                        $role = session('role');
+                        $button = '';
+                        if (isset($role['App\\Http\\Controllers\\Facilities\\FacilitiesController']['edit']) && ($role['App\\Http\\Controllers\\Facilities\\FacilitiesController']['edit'] == "allow")){
+                            $button .= '<a href="/editfacility/'.$data->facility_id.'" name="edit" id="'.$data->facility_id.'" class="edit btn btn-dark btn-sm"><i class="mdi mdi-border-color"></i></a>';
+                        }
                         return $button;
                     })
                     ->addColumn('province', function($data){

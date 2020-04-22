@@ -96,7 +96,7 @@
                                             <label for="cekAllPrivileges<?php echo $counter;?>"><?php echo ucwords($privileges->display_name);?></label>
                                             <label class="float-right">
                                                 <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>"
-                                                name="resource['<?php echo $value->resource_id;?>']['<?php echo $privileges->privilege_name;?>']"
+                                                name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]"
                                                 value="<?php echo $allowActive;?>"
                                                 data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary"
                                                 onchange='checkManual(this);' <?php echo $allowChecked;?>/>
