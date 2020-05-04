@@ -11,7 +11,7 @@
     <nav class=" ml-auto">
         <ul class="nav align-items-center">
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <div class="dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-24px mdi-bell-outline"></i>
                         <span class="notification-counter"></span>
@@ -48,7 +48,7 @@
 
                     </div>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" href="#"   role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">

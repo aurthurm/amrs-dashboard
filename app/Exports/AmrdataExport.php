@@ -44,31 +44,36 @@ class AmrdataExport implements FromCollection, WithHeadings, WithTitle
         $antibioticArray = array();
         $anticol = DB::table('amr_antibiotics')->distinct()->get(['antibiotic']);
         $anticol = $anticol->toArray();
-        for($k=0;$k<count($data);$k++){
-            $antibiotics = DB::table('amr_antibiotics')
-                            ->select('*')
-                            ->where('amr_id','=',$data[$k]->amr_id)
-                            ->get();
-            $antibiotics = $antibiotics->toArray();
-            for($a=0;$a<count($antibiotics);$a++){
-                $antibioticArray[$data[$k]->amr_id][$antibiotics[$a]->antibiotic] = $antibiotics[$a]->value;
-            }
-            foreach($data[$k] as $key => $value){
-                $amrData[$k][] = $value;
-            }
-            for($l=0;$l<count($anticol);$l++){
-                if(array_key_exists($anticol[$l]->antibiotic, $antibioticArray[$data[$k]->amr_id])){
-                    $amrData[$k][] = $antibioticArray[$data[$k]->amr_id][$anticol[$l]->antibiotic];
+        if(count($data)>0){
+            for($k=0;$k<count($data);$k++){
+                $antibiotics = DB::table('amr_antibiotics')
+                                ->select('*')
+                                ->where('amr_id','=',$data[$k]->amr_id)
+                                ->get();
+                $antibiotics = $antibiotics->toArray();
+                for($a=0;$a<count($antibiotics);$a++){
+                    $antibioticArray[$data[$k]->amr_id][$antibiotics[$a]->antibiotic] = $antibiotics[$a]->value;
                 }
-                else{
-                    $amrData[$k][] = "";
+                foreach($data[$k] as $key => $value){
+                    $amrData[$k][] = $value;
+                }
+                for($l=0;$l<count($anticol);$l++){
+                    if(array_key_exists($anticol[$l]->antibiotic, $antibioticArray[$data[$k]->amr_id])){
+                        $amrData[$k][] = $antibioticArray[$data[$k]->amr_id][$anticol[$l]->antibiotic];
+                    }
+                    else{
+                        $amrData[$k][] = "";
+                    }
                 }
             }
+            return collect([
+                
+                $amrData
+            ]);
         }
-        return collect([
-            
-            $amrData
-        ]);
+        else{
+            $msg = "There is no data in this specimen collection date range";
+        }
     }
 
     public function headings(): array

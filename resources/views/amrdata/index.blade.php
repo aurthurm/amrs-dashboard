@@ -130,28 +130,66 @@
 <script>
 
     $(document).ready(function () {
-        var currentdate = new Date(); 
-        var datetime =  currentdate.getDate() + "-"
-                        + (currentdate.getMonth()+1)  + "-" 
-                        + currentdate.getFullYear() + "-"  
-                        + currentdate.getHours() + "-"  
-                        + currentdate.getMinutes() + "-" 
-                        + currentdate.getSeconds();
+        // var currentdate = new Date(); 
+        // var datetime =  currentdate.getDate() + "-"
+        //                 + (currentdate.getMonth()+1)  + "-" 
+        //                 + currentdate.getFullYear() + "-"  
+        //                 + currentdate.getHours() + "-"  
+        //                 + currentdate.getMinutes() + "-" 
+        //                 + currentdate.getSeconds();
+        // // $('input[name="dates"]').daterangepicker();
+        // var start = moment().subtract(3, 'months');
+        // var end = moment();
+        startYear="2017";
+		currentYear=new Date().getFullYear();
         $('.js-select2').select2();
-        // $('input[name="dates"]').daterangepicker();
-        var start = moment().subtract(3, 'months');
-        var end = moment();
+		$('.input-daterange').daterangepicker({
+            startDate: moment().subtract(3, 'months'),
+		    endDate: moment(),
+			maxDate: moment(),
+			// autoUpdateInput: false,
+			ranges: {
+				'Today': [moment(), moment()],
+				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1,'days')],
+				'Last 7 Days': [moment().subtract(6, 'days' ), moment()],
+				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+				'This Month': [moment().startOf('month'), moment().endOf('month')],
+				'Last Month': [moment().subtract(1, 'month' ).startOf('month'), moment().subtract(1, 'month').endOf('month')],
+				'Last 3 Months': [moment().subtract(3, 'month' ).startOf('month'), moment().subtract(1, 'month').endOf('month')],
+				'Last Financial Year': 
+                [
+                  moment() // 2017-01-16
+                  .month(3) // 2017-04-16
+                  .startOf('month') // 2017-04-01
+                  .subtract(2, 'year'), // 2016-04-01
+                  moment() // 2017-01-16
+                  .month(2) // 2017-04-16
+                  .endOf('month') // 2017-04-01
+                  .subtract(1, 'year'), // 2016-04-01
+                ],
+                'Current Financial Year': 
+                [
+                  moment() // 2017-01-16
+                  .month(3) // 2017-04-16
+                  .startOf('month') // 2017-04-01
+                  .subtract(1, 'year'), // 2016-04-01
+                  moment() // 2017-01-16
+                  .month(3) // 2017-04-16
+                  .startOf('month') // 2017-04-01
+                  .subtract(1, 'days') // 2017-03-31
+                ]
+			},
+			locale: {
+				format: 'DD-MMM-YYYY',
+				separator: ' to '
+			}
+		},
+		function(start, end) {
+			startDate = start.format('YYYY-MM-DD');
+			endDate = end.format('YYYY-MM-DD');
+        });
 
-        function cb(start, end) {
-            $('#specimenDate').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-        // $('.input-daterange').daterangepicker('setDate', today);
-        $('.input-daterange').daterangepicker({
-            startDate: start,
-            endDate: end,
-            locale: { format: 'DD-MMM-YYYY' }
-        }, cb);
-        cb(start, end);
+        specimenDate = $('#specimenDate').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -168,16 +206,19 @@
             ajax: {
                 url:'{{ url("getamrdata") }}',
                 type: 'POST',
-            },
-            dom: 'lBfrtip',
-            buttons: [
-                {
-                    extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
-                    exportOptions: {
-                        columns: 'th:not(:first-child)'
-                    }
+                data:{
+                    specimenDate:specimenDate,
                 }
-            ],
+            },
+            // dom: 'lBfrtip',
+            // buttons: [
+            //     {
+            //         extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
+            //         exportOptions: {
+            //             columns: 'th:not(:first-child)'
+            //         }
+            //     }
+            // ],
             columns: [
                     {data: 'action', name: 'action', orderable: false},
                     { data: 'laboratory', name: 'laboratory' },
@@ -253,13 +294,13 @@
                 type: 'POST',
                 data: { facilityCode:facilityCode,gender:gender,specimenDate:specimenDate },
             },
-            dom: 'lBfrtip',
-            buttons: [
-                {extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
-                exportOptions: {
-                    columns: 'th:not(:first-child)'
-                }}
-            ],
+            // dom: 'lBfrtip',
+            // buttons: [
+            //     {extend: 'excel', text: 'Export',title:'AMRS-Data-'+datetime,
+            //     exportOptions: {
+            //         columns: 'th:not(:first-child)'
+            //     }}
+            // ],
             columns: [
                     {data: 'action', name: 'action', orderable: false},
                     { data: 'laboratory', name: 'laboratory' },

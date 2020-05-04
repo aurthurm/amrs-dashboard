@@ -83,6 +83,13 @@ class AmrdataController extends Controller
 
     public function getamrdata(Request $request)
     {
+        $req = $request->all();
+        $specimenDate = $req['specimenDate'];
+        if($specimenDate){
+            $specimenDate = explode(' to ',$specimenDate);
+            $startSpecimenDate = date("Y-m-d", strtotime($specimenDate[0]));
+            $endSpecimenDate = date("Y-m-d", strtotime($specimenDate[1]));
+        }
         if(session('roleType')=="user"){
             $data = DB::table('users')
             ->join('user_facility_map','user_facility_map.user_id','=','users.user_id')
@@ -90,6 +97,7 @@ class AmrdataController extends Controller
             ->join('amr_surveillance','facilities.facility_code','=','amr_surveillance.laboratory')
             ->where('users.user_id',session('userId'))
             ->where('facilities.status','active')
+            ->whereBetween('amr_surveillance.spec_date',[$startSpecimenDate,$endSpecimenDate])
             ->select('amr_surveillance.*')
             ->get();
             return DataTables::of($data)
