@@ -56,7 +56,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group  col-md-3">
+                                <div class="form-group  col-md-2">
                                     <label> Gender </label>
                                     <div class="col-md-12">
                                         <select class="form-control" id="gender">
@@ -66,7 +66,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" form-group col-md-3">
+                                <div class=" form-group col-md-5">
                                     <label  >Select Date Range</label>
                                     <div class="m-b-10">
                                         <input type="text" id="specimenDate" name="dates" class="input-daterange form-control" >

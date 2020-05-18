@@ -75,7 +75,7 @@ class RolesTable extends Model
 
    //Role Save in Acl File
    public function mapRolePrivilege($params) {
-    //    dd($params->all());
+    // dd($params->all());
     try {
             $roleCode=$params['roleCode'];
             $configFile =  "acl.config.json";
@@ -88,9 +88,13 @@ class RolesTable extends Model
             else
                 $config = array();
                 $config[$roleCode] = array();
-            foreach ($params['resource'] as $resourceName => $privilege) {
-                $config[$roleCode][$resourceName] = $privilege;
+            if(isset($params['resource']) && $params['resource']!='' && $params['resource']!=null){
+                foreach ($params['resource'] as $resourceName => $privilege) {
+                    $config[$roleCode][$resourceName] = $privilege;
+                }
             }
+            if (!is_writable(getcwd() . DIRECTORY_SEPARATOR . $configFile))
+                chmod(getcwd() . DIRECTORY_SEPARATOR . $configFile, 0755);
             File::put( getcwd() . DIRECTORY_SEPARATOR . $configFile, json_encode($config));
             
         } catch (Exception $exc) {

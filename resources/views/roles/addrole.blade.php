@@ -61,7 +61,7 @@
                     </div>
                     <div class = "row">
                         <label class="label-control" for="markAllOption">Check all Allowed/Denied
-                            <input type="checkbox" checked data-toggle="toggle" onchange="checkAll(this);" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary">
+                            <input type="checkbox" data-toggle="toggle" onchange="checkAll(this);" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary">
                         </label>
                     </div>
                     <!-- <br/> -->
@@ -143,16 +143,35 @@ function checkManual(obj){
         flag = deforayValidator.init({
             formId: 'addrole'
         });
-        
+        var inputElems = document.getElementsByTagName("input"),
+        n = 0;
+        for (var i=0; i<inputElems.length; i++) {
+            if (inputElems[i].type === "checkbox" && inputElems[i].value === 'allow'){
+                n++;
+            }
+        }
+        if(flag==true)
+        {
+            if(n == 0) {
+                flag='<div class="alert alert-danger alert-dismissible fade show ml-5 mr-5 mt-2" role="alert" ><div class="text-center" style="font-size: 18px;"><b>Please give atleast one role permission</b></div>';
+                flag+='<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div>';
+                role = 1;
+            } else {
+                flag = true;
+            }
+        }
         if (flag == true) {
             if (duplicateName) {
                 document.getElementById('addrole').submit();
             }
         }
         else{
-            // Swal.fire('Any fool can use a computer');
+            if(role==1)
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            else
+    			$(".infocus").focus();
             $('#show_alert').html(flag).delay(3000).fadeOut();
-            $('#show_alert').css("display","block");
+			$('#show_alert').css("display","block");
         }
     }
 
