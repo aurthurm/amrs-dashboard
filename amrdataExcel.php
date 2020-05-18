@@ -50,12 +50,15 @@ $sep = "\t"; //tabbed character
 // echo mysqli_fetch_field_direct($result,$i)->name . "\t";
 // }
 print("\n");
-if(file_exists('baclink_'.$fileStart.'_'.$fileEnd.'.xls')){
-	unlink('baclink_'.$fileStart.'_'.$fileEnd.'.xls');
+if(file_exists('backlink/baclink_'.$fileStart.'_'.$fileEnd.'.xls')){
+	unlink('backlink/baclink_'.$fileStart.'_'.$fileEnd.'.xls');
 }
 $columnHeader = '';  
 $columnHeader = "First Name" . "\t" . "Last Name" . "\t"."Specimen type". "\t"."Specimen date". "\t"."Organism". "\t"."Antibiotic". "\t"."Method". "\t"."Measurement". "\t"."Interp". "\t";
-file_put_contents('baclink_'.$fileStart.'_'.$fileEnd.'.xls', $columnHeader."\n",FILE_APPEND);
+if(! file_exists('backlink/')){
+    mkdir('backlink/', 0755, true);
+}
+file_put_contents('backlink/baclink_'.$fileStart.'_'.$fileEnd.'.xls', $columnHeader."\n",FILE_APPEND);
 
     while($row = $result->fetch_row())
     {
@@ -74,7 +77,8 @@ file_put_contents('baclink_'.$fileStart.'_'.$fileEnd.'.xls', $columnHeader."\n",
         $schema_insert .= "\n";
         print(trim($schema_insert));
         print "\n";
-        file_put_contents('baclink_'.$fileStart.'_'.$fileEnd.'.xls', $schema_insert,FILE_APPEND);
+        
+        file_put_contents('backlink/baclink_'.$fileStart.'_'.$fileEnd.'.xls', $schema_insert,FILE_APPEND);
     }   
 
 ?>
