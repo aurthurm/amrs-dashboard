@@ -82,9 +82,11 @@
                                         <li class="list-group-item">
                                             <label for="cekAllPrivileges<?php echo $counter;?>"><?php echo ucwords($privileges->display_name);?></label>
                                             <label class="float-right">
-                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>" name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]" value='allow' checked data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" onchange='checkManual(this);' >
+                                                <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>" name="resources[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]" value='deny' data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" onchange='checkManual(this,{{$counter}});' >
                                             </label>
-                                            
+                                            <div style="display:none">
+                                            <input type="checkbox" class="cekAllPrivilegesHidden" id="cekAllPrivilegesHidden<?php echo $counter;?>" name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]" value='deny' data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary" >
+                                            </div>
                                         </li>
                                     <?php } ?>
                                     </ul>
@@ -120,21 +122,25 @@ function checkAll(obj){
         $( '.cekAllPrivileges' ).val('allow');
         $( '.toggle' ).removeClass('btn btn-primary off');
         $( '.toggle' ).addClass('btn btn-dark');
+        $( '.cekAllPrivilegesHidden' ).val('allow');
     } else {
         $('input:checkbox').removeAttr('checked');
         $( '.cekAllPrivileges' ).val('deny');
         $( '.toggle' ).removeClass('btn btn-dark');
         $( '.toggle' ).addClass('btn btn-primary off');
-        // $( '.toggle.off .toggle-group' ).css('left','-100px');
-        // $( '.bootstrap-switch-container' ).css('margin-left','-75px');
+        $( '.cekAllPrivilegesHidden' ).val('deny');
     }
 }
 
-function checkManual(obj){
+function checkManual(obj,id){
     if ( $(obj).prop('checked') == true ) {
         $( obj ).val('allow');
+        $('#cekAllPrivilegesHidden'+id).prop('checked','checked');
+        $('#cekAllPrivilegesHidden'+id).val('allow');
     } else {
         $( obj ).val('deny');
+        $('#cekAllPrivilegesHidden'+id).prop('checked',false);
+        $('#cekAllPrivilegesHidden'+id).val('deny');
     }
 }
 

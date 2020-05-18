@@ -96,12 +96,18 @@
                                             <label for="cekAllPrivileges<?php echo $counter;?>"><?php echo ucwords($privileges->display_name);?></label>
                                             <label class="float-right">
                                                 <input type="checkbox" class="cekAllPrivileges" id="cekAllPrivileges<?php echo $counter;?>"
-                                                name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]"
+                                                name="resources[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]"
                                                 value="<?php echo $allowActive;?>"
                                                 data-toggle="toggle" data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary"
-                                                onchange='checkManual(this);' <?php echo $allowChecked;?>/>
+                                                onchange='checkManual(this,{{$counter}});' <?php echo $allowChecked;?>/>
                                             </label>
-                                            
+                                            <div style="display:none">
+                                                <input type="checkbox" class="cekAllPrivilegesHidden" id="cekAllPrivilegesHidden<?php echo $counter;?>"
+                                                name="resource[<?php echo $value->resource_id;?>][<?php echo $privileges->privilege_name;?>]"
+                                                value="<?php echo $allowActive;?>"
+                                                data-on="Access" data-off="Denied" data-onstyle="dark" data-offstyle="primary"
+                                                <?php echo $allowChecked;?>/>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                     </ul>
@@ -133,25 +139,31 @@ $(function(){
 
 function checkAll(obj){
     if ( $(obj).prop('checked') == true ) {
-        $('input:checkbox').attr('checked','checked');
-        $( '.cekAllPrivileges' ).val('allow');
         $( '.toggle' ).removeClass('btn btn-primary off');
         $( '.toggle' ).addClass('btn btn-dark');
+        $('input:checkbox').attr('checked','checked');
+        $( '.cekAllPrivileges' ).val('allow');
+        $( '.cekAllPrivilegesHidden' ).val('allow');
     } else {
-        $('input:checkbox').removeAttr('checked');
-        $( '.cekAllPrivileges' ).val('deny');
+        
         $( '.toggle' ).removeClass('btn btn-dark');
         $( '.toggle' ).addClass('btn btn-primary off');
-        // $( '.toggle.off .toggle-group' ).css('left','-100px');
-        // $( '.bootstrap-switch-container' ).css('margin-left','-75px');
+        $('input:checkbox').removeAttr('checked');
+        $( '.cekAllPrivileges' ).val('deny');
+        $( '.cekAllPrivilegesHidden' ).val('deny');
     }
 }
 
-function checkManual(obj){
+function checkManual(obj,id){
+    // console.log(id)
     if ( $(obj).prop('checked') == true ) {
         $( obj ).val('allow');
+        $('#cekAllPrivilegesHidden'+id).prop('checked','checked');
+        $('#cekAllPrivilegesHidden'+id).val('allow');
     } else {
         $( obj ).val('deny');
+        $('#cekAllPrivilegesHidden'+id).prop('checked',false);
+        $('#cekAllPrivilegesHidden'+id).val('deny');
     }
 }
 
@@ -179,6 +191,7 @@ function checkManual(obj){
         }
         if (flag == true) {
             if (duplicateName) {
+                // $('.cekAllPrivileges').removeAttr('data-toggle');
                 document.getElementById('editrole').submit();
             }
         }
