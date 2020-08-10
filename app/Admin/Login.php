@@ -17,7 +17,7 @@ class Login extends Model
         $data = $request->all();
         $result = DB::table('users')
             ->join('roles', 'roles.role_id', '=', 'users.role_id')
-            ->where(['username'=> $data['username'],'status'=>'active' ])
+            ->where(['users.username'=> $data['username'],'users.status'=>'active' ])
             ->get();
         $result = $result->toArray();
         if(count($result)>0){
